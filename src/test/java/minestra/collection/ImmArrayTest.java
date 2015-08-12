@@ -9,24 +9,47 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.apache.commons.collections4.IteratorUtils;
 import org.junit.Test;
 
 public final class ImmArrayTest {
 
     static final class ImmArrayImpl0<T> implements ImmArray<T> {
 
-        int size;
         private T[] values;
 
         @SafeVarargs
         ImmArrayImpl0(T... a) {
-            this.size = a.length;
             this.values = a;
         }
 
         @Override
         public T at(int index) {
             return values[index];
+        }
+
+        @Override
+        public Iterator<T> iterator() {
+            return IteratorUtils.arrayIterator(values);
+        }
+
+        @Override
+        public int size() {
+            return values.length;
+        }
+
+        @Override
+        public T[] toArray() {
+            return Arrays.copyOf(values, size());
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + size();
+            result = prime * result + Arrays.hashCode(values);
+            return result;
         }
 
         @Override
@@ -41,7 +64,7 @@ public final class ImmArrayTest {
                 return false;
             }
             ImmArrayImpl0<?> other = (ImmArrayImpl0<?>) obj;
-            if (size != other.size) {
+            if (size() != other.size()) {
                 return false;
             }
             if (!Arrays.equals(values, other.values)) {
@@ -51,58 +74,8 @@ public final class ImmArrayTest {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + size;
-            result = prime * result + Arrays.hashCode(values);
-            return result;
-        }
-
-        @Override
-        public Iterator<T> iterator() {
-            return new IteratorImpl();
-        }
-
-        @Override
-        public int size() {
-            return size;
-        }
-
-        @Override
-        public T[] toArray() {
-            return Arrays.copyOf(values, size);
-        }
-
-        @Override
         public String toString() {
             return "ImmArrayImpl0" + Arrays.toString(values);
-        }
-
-        final class IteratorImpl implements Iterator<T> {
-
-            private int p;
-
-            IteratorImpl() {
-                this.p = -1;
-            }
-
-            @Override
-            public boolean hasNext() {
-                if (p + 1 < size) {
-                    ++p;
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-
-            @Override
-            public T next() {
-                return at(p);
-            }
-
         }
 
     }
