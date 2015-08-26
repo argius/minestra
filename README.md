@@ -1,6 +1,6 @@
 Minestra
 ========
-Minestra is a simple basic utility library for Java8 and later.
+Minestra is a small utilities library for Java8 and later.
 
 
 The word 'minestra' means soup in Italian. I love soups and there is no particular meaning for this name.
@@ -32,10 +32,12 @@ Examples
 // import java.util.*;
 // import minestra.collection.*;
 
-ImmArray<String> a = ImmArray.of(Arrays.asList("1"), Optional.of("2"), ImmArray.of("3", "A"), Optional.empty(),
-    Arrays.asList("5"), "B", Stream.of("6", "7")).flatten();
+ImmArray<String> a = ImmArray.of(Arrays.asList("1"), Optional.of("2"), ImmArray.of("3", "A"),
+    Optional.empty(), Arrays.asList("5"), "B", Stream.of("6", "7"))
+    .flatten();
 // => [1, 2, 3, A, 5, B, 6, 7]
 ```
+
 
 
 ### PathIterator
@@ -44,12 +46,14 @@ ImmArray<String> a = ImmArray.of(Arrays.asList("1"), Optional.of("2"), ImmArray.
 // import java.nio.file.*;
 // import minestra.file.*;
 
-PathIterator.streamOf(Paths.get("/tmp")).filter(x -> x.toFile().length() > 1024L * 100)
-.forEach(System.out::println);
+PathIterator.streamOf(Paths.get("/tmp"))
+    .filter(x -> x.toFile().length() > 1024L * 100)
+    .forEach(System.out::println);
 for (Path x : PathIterator.of(Paths.get("/tmp"))) {
     System.out.println(x);
 }
 ```
+
 
 
 ### I18nResource
@@ -59,14 +63,15 @@ for (Path x : PathIterator.of(Paths.get("/tmp"))) {
 // import minestra.resource.*;
 
 I18nResource rootBase = I18nResource.create(Locale.JAPAN);
-I18nResource pkgBase = I18nResource.create("/yourpkg/", JA);
+I18nResource pkgBase = I18nResource.create("/yourpkg/", Locale.JAPAN);
 I18nResource res = rootBase.derive(YourClass.class);
-I18nResource resJa = rootBase.derive(YourClass.class, JA);
+I18nResource resJa = rootBase.derive(YourClass.class, Locale.JAPAN);
 
 String s = res.string("key1");
 int i = res.integer("key2");
 boolean b = res.isTrue("key3");
 ```
+
 
 
 See also test classes.
