@@ -12,6 +12,19 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+/**
+ * {@code PathIterator} privides a find-like feature.
+ *
+ * <p>
+ * This feature is similar to {@link java.nio.file.Files#find}.
+ * However, {@code Files.find} encounts {@code IOException} and stop finding.
+ * </p>
+ *
+ * <p>
+ * {@code PathIterator} keep finding with printing the warning by default,
+ * when it encounts {@code IOException}.
+ * </p>
+ */
 public final class PathIterator implements Iterator<Path>, Iterable<Path> {
 
     private final int rootDepth;
@@ -28,6 +41,10 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
         dirs.offer(root);
     }
 
+    /**
+     * Returns whether it remains next paths.
+     * @return true if it remains next paths, otherwise false
+     */
     @Override
     public boolean hasNext() {
         if (!dirs.isEmpty()) {
@@ -36,28 +53,58 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
         return !q.isEmpty();
     }
 
+    /**
+     * Return a next Path.
+     * @return the Path. Returns null if there are no more paths
+     */
     @Override
     public Path next() {
         return q.poll();
     }
 
+    /**
+     * Returns an PathIterator as Iterator.
+     * @return the Iterator of PathIterator
+     */
     @Override
     public Iterator<Path> iterator() {
         return this;
     }
 
+    /**
+     * Returns a PathIterator.
+     * @param root root directory to find
+     * @return the PathIterator
+     */
     public static PathIterator of(Path root) {
         return of(root, Integer.MAX_VALUE);
     }
 
+    /**
+     * Returns a PathIterator.
+     * @param path root directory to find
+     * @param maxDepth the maximum number of directory levels to find
+     * @return the PathIterator
+     */
     public static PathIterator of(Path path, int maxDepth) {
         return new PathIterator(path, maxDepth);
     }
 
+    /**
+     * Returns a PathIterator as Stream.
+     * @param root root directory to find
+     * @return the Stream of PathIterator
+     */
     public static Stream<Path> streamOf(Path root) {
         return streamOf(root, Integer.MAX_VALUE);
     }
 
+    /**
+     * Returns a PathIterator as Stream.
+     * @param root root directory to find
+     * @param maxDepth the maximum number of directory levels to find
+     * @return the Stream of PathIterator
+     */
     public static Stream<Path> streamOf(Path root, int maxDepth) {
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(new PathIterator(root, maxDepth), 0), false);
     }

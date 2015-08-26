@@ -1,8 +1,14 @@
 package minestra.collection;
 
+/**
+ * A comparator for natural ordering of primitive <code>int</code>.
+ */
 @FunctionalInterface
 public interface IntComparator {
 
+    /**
+     * The instance of this comparator.
+     */
     IntComparator NATURAL = new IntComparator() {
         @Override
         public int compareTo(int a, int b) {
@@ -10,6 +16,9 @@ public interface IntComparator {
         }
     };
 
+    /**
+     * The instance of this comparator for the reversed ordering.
+     */
     IntComparator REVERSE = new IntComparator() {
         @Override
         public int compareTo(int a, int b) {
@@ -17,16 +26,41 @@ public interface IntComparator {
         }
     };
 
+    /**
+     * Compares <code>A</code> and <code>B</code> along the order of this instance.
+     * @param a value A
+     * @param b value B
+     * @return result of comparing
+     * @see java.util.Comparator
+     */
     int compareTo(int a, int b);
 
+    /**
+     * Return <code>true</code> if <code>A</code> is greater than <code>B</code>.
+     * @param a value A
+     * @param b value B
+     * @return result
+     */
     default boolean gt(int a, int b) {
         return compareTo(a, b) > 0;
     }
 
+    /**
+     * Return <code>true</code> if <code>A</code> is equals to <code>B</code>.
+     * @param a value A
+     * @param b value B
+     * @return result
+     */
     default boolean eq(int a, int b) {
         return compareTo(a, b) == 0;
     }
 
+    /**
+     * Return <code>true</code> if <code>A</code> is less than <code>B</code>.
+     * @param a value A
+     * @param b value B
+     * @return result
+     */
     default boolean lt(int a, int b) {
         return compareTo(a, b) < 0;
     }
