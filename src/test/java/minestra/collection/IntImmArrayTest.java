@@ -99,6 +99,13 @@ public class IntImmArrayTest {
     }
 
     @Test
+    public void testDropWhile() {
+        assertEquals(arr(100, 121, 122), arr(111, 112, 113, 100, 121, 122).dropWhile(x -> x > 100));
+        assertEquals(arr(1, 2, 3), arr(1, 2, 3).dropWhile(x -> x > 9));
+        assertEquals(arr(), arr(1, 2, 3).dropWhile(x -> x < 9));
+    }
+
+    @Test
     public void testEmpty() {
         IntImmArray empty1 = IntImmArray.empty();
         IntImmArray empty2 = IntImmArray.empty();

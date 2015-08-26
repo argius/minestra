@@ -101,6 +101,13 @@ public class LongImmArrayTest {
     }
 
     @Test
+    public void testDropWhile() {
+        assertEquals(arr(-9L, 23L), arr(20L, 3L, 42L, 47L, 15L, -9L, 23L).dropWhile(x -> x >= 3L));
+        assertEquals(arr(7L, 15L, -9L, 23L), arr(7L, 15L, -9L, 23L).dropWhile(x -> x < -10L));
+        assertEquals(arr(), arr(7L, 15L, -9L, 23L).dropWhile(x -> x > -10L));
+    }
+
+    @Test
     public void testEmpty() {
         assertEquals(arr(), LongImmArray.empty());
     }

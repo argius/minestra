@@ -249,6 +249,16 @@ public interface DoubleImmArray {
     }
 
     /**
+     * Returns the rest of the array that drops elements which the specified predicate matches in this array.
+     * @param pred predicate
+     * @return the array
+     */
+    default DoubleImmArray dropWhile(DoublePredicate pred) {
+        final int index = indexWhere(pred.negate());
+        return (index >= 0) ? drop(index) : empty();
+    }
+
+    /**
      * Returns the slice of this array.
      * @param from inclusive index of first
      * @param to exclusive index of end
