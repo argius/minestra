@@ -11,7 +11,7 @@ public interface DoubleComparator {
      */
     DoubleComparator NATURAL = new DoubleComparator() {
         @Override
-        public int compareTo(double a, double b) {
+        public int compare(double a, double b) {
             return (a == b) ? 0 : (a < b) ? -1 : 1;
         }
     };
@@ -21,7 +21,7 @@ public interface DoubleComparator {
      */
     DoubleComparator REVERSE = new DoubleComparator() {
         @Override
-        public int compareTo(double a, double b) {
+        public int compare(double a, double b) {
             return (a == b) ? 0 : (a > b) ? -1 : 1;
         }
     };
@@ -33,7 +33,7 @@ public interface DoubleComparator {
      * @return result of comparing
      * @see java.util.Comparator
      */
-    int compareTo(double a, double b);
+    int compare(double a, double b);
 
     /**
      * Return <code>true</code> if <code>A</code> is greater than <code>B</code>.
@@ -42,7 +42,7 @@ public interface DoubleComparator {
      * @return result
      */
     default boolean gt(double a, double b) {
-        return compareTo(a, b) > 0;
+        return compare(a, b) > 0;
     }
 
     /**
@@ -52,7 +52,7 @@ public interface DoubleComparator {
      * @return result
      */
     default boolean eq(double a, double b) {
-        return compareTo(a, b) == 0;
+        return compare(a, b) == 0;
     }
 
     /**
@@ -62,7 +62,7 @@ public interface DoubleComparator {
      * @return result
      */
     default boolean lt(double a, double b) {
-        return compareTo(a, b) < 0;
+        return compare(a, b) < 0;
     }
 
 }

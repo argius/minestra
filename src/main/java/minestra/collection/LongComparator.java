@@ -11,7 +11,7 @@ public interface LongComparator {
      */
     LongComparator NATURAL = new LongComparator() {
         @Override
-        public int compareTo(long a, long b) {
+        public int compare(long a, long b) {
             return (a == b) ? 0 : (a < b) ? -1 : 1;
         }
     };
@@ -21,7 +21,7 @@ public interface LongComparator {
      */
     LongComparator REVERSE = new LongComparator() {
         @Override
-        public int compareTo(long a, long b) {
+        public int compare(long a, long b) {
             return (a == b) ? 0 : (a > b) ? -1 : 1;
         }
     };
@@ -33,7 +33,7 @@ public interface LongComparator {
      * @return result of comparing
      * @see java.util.Comparator
      */
-    int compareTo(long a, long b);
+    int compare(long a, long b);
 
     /**
      * Return <code>true</code> if <code>A</code> is greater than <code>B</code>.
@@ -42,7 +42,7 @@ public interface LongComparator {
      * @return result
      */
     default boolean gt(long a, long b) {
-        return compareTo(a, b) > 0;
+        return compare(a, b) > 0;
     }
 
     /**
@@ -52,7 +52,7 @@ public interface LongComparator {
      * @return result
      */
     default boolean eq(long a, long b) {
-        return compareTo(a, b) == 0;
+        return compare(a, b) == 0;
     }
 
     /**
@@ -62,7 +62,7 @@ public interface LongComparator {
      * @return result
      */
     default boolean lt(long a, long b) {
-        return compareTo(a, b) < 0;
+        return compare(a, b) < 0;
     }
 
 }

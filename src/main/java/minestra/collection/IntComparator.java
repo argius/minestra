@@ -11,7 +11,7 @@ public interface IntComparator {
      */
     IntComparator NATURAL = new IntComparator() {
         @Override
-        public int compareTo(int a, int b) {
+        public int compare(int a, int b) {
             return (a == b) ? 0 : (a < b) ? -1 : 1;
         }
     };
@@ -21,7 +21,7 @@ public interface IntComparator {
      */
     IntComparator REVERSE = new IntComparator() {
         @Override
-        public int compareTo(int a, int b) {
+        public int compare(int a, int b) {
             return (a == b) ? 0 : (a > b) ? -1 : 1;
         }
     };
@@ -33,7 +33,7 @@ public interface IntComparator {
      * @return result of comparing
      * @see java.util.Comparator
      */
-    int compareTo(int a, int b);
+    int compare(int a, int b);
 
     /**
      * Return <code>true</code> if <code>A</code> is greater than <code>B</code>.
@@ -42,7 +42,7 @@ public interface IntComparator {
      * @return result
      */
     default boolean gt(int a, int b) {
-        return compareTo(a, b) > 0;
+        return compare(a, b) > 0;
     }
 
     /**
@@ -52,7 +52,7 @@ public interface IntComparator {
      * @return result
      */
     default boolean eq(int a, int b) {
-        return compareTo(a, b) == 0;
+        return compare(a, b) == 0;
     }
 
     /**
@@ -62,7 +62,7 @@ public interface IntComparator {
      * @return result
      */
     default boolean lt(int a, int b) {
-        return compareTo(a, b) < 0;
+        return compare(a, b) < 0;
     }
 
 }
