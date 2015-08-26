@@ -14,7 +14,6 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
 
     static final ImmArray<?> EMPTY = new ImmArrayImpl<>();
 
-    final int size;
     final private T[] values;
 
     @SafeVarargs
@@ -24,14 +23,12 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
 
     @SafeVarargs
     ImmArrayImpl(boolean withoutCopying, T... a) {
-        this.size = a.length;
-        this.values = withoutCopying ? a : Arrays.copyOf(a, size);
+        this.values = withoutCopying ? a : Arrays.copyOf(a, a.length);
     }
 
     ImmArrayImpl(Collection<T> a) {
         @SuppressWarnings("unchecked")
         final T[] array = (T[]) a.toArray();
-        this.size = array.length;
         this.values = array;
     }
 
@@ -47,12 +44,12 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
 
     @Override
     public int size() {
-        return size;
+        return values.length;
     }
 
     @Override
     public ImmArray<T> filter(Predicate<? super T> pred) {
-        final int n = size;
+        final int n = size();
         List<T> a = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
             if (pred.test(values[i])) {
@@ -96,14 +93,13 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
 
     @Override
     public T[] toArray() {
-        return Arrays.copyOf(values, size);
+        return Arrays.copyOf(values, values.length);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + size;
         result = prime * result + Arrays.hashCode(values);
         return result;
     }
@@ -121,9 +117,6 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
         }
         @SuppressWarnings("rawtypes")
         ImmArrayImpl other = (ImmArrayImpl) obj;
-        if (size != other.size) {
-            return false;
-        }
         if (!Arrays.equals(values, other.values)) {
             return false;
         }
@@ -137,15 +130,17 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
 
     final class IteratorImpl implements Iterator<T> {
 
+        private final int len;
         private int p;
 
         IteratorImpl() {
+            this.len = values.length;
             this.p = -1;
         }
 
         @Override
         public boolean hasNext() {
-            if (p + 1 < size) {
+            if (p + 1 < len) {
                 ++p;
                 return true;
             }

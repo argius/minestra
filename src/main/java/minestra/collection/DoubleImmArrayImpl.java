@@ -7,7 +7,6 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     static final DoubleImmArray EMPTY = new DoubleImmArrayImpl();
 
-    final int size;
     final double[] values;
 
     DoubleImmArrayImpl(double... a) {
@@ -15,8 +14,7 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
     }
 
     DoubleImmArrayImpl(boolean withoutCopying, double... a) {
-        this.size = a.length;
-        this.values = withoutCopying ? a : Arrays.copyOf(a, size);
+        this.values = withoutCopying ? a : Arrays.copyOf(a, a.length);
     }
 
     @Override
@@ -26,12 +24,12 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     @Override
     public int size() {
-        return size;
+        return values.length;
     }
 
     @Override
     public double sum() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return 0;
         }
@@ -47,7 +45,7 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     @Override
     public double product() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return 0;
         }
@@ -63,7 +61,7 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     @Override
     public OptionalDouble max() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return OptionalDouble.empty();
         }
@@ -81,7 +79,7 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     @Override
     public OptionalDouble min() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return OptionalDouble.empty();
         }
@@ -99,7 +97,7 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     @Override
     public DoubleImmArray sortWith(int fromIndex, int toIndex, DoubleComparator cmp) {
-        double[] a = Arrays.copyOf(values, size);
+        double[] a = Arrays.copyOf(values, values.length);
         sortWith0(a, fromIndex, toIndex, cmp);
         return new DoubleImmArrayImpl(a);
     }
@@ -150,14 +148,13 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     @Override
     public double[] toArray() {
-        return Arrays.copyOf(values, size);
+        return Arrays.copyOf(values, values.length);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + size;
         result = prime * result + Arrays.hashCode(values);
         return result;
     }
@@ -174,9 +171,6 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
             return false;
         }
         DoubleImmArrayImpl other = (DoubleImmArrayImpl) obj;
-        if (size != other.size) {
-            return false;
-        }
         if (!Arrays.equals(values, other.values)) {
             return false;
         }

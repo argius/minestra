@@ -137,13 +137,6 @@ public class DoubleImmArrayTest {
     }
 
     @Test
-    public void testHashCode() {
-        assertEquals(3147808, DoubleImmArrayTest.arr(1.1, 2.2).hashCode());
-        assertEquals(-1503132670, DoubleImmArrayTest.arr(1.1).hashCode());
-        assertEquals(962, DoubleImmArrayTest.arr().hashCode());
-    }
-
-    @Test
     public void testHead() {
         assertEquals(OptionalDouble.of(8.2d), DoubleImmArrayTest.arr(8.2d, 3, 12, -8).head());
         assertEquals(OptionalDouble.empty(), DoubleImmArrayTest.arr().head());
