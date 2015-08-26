@@ -358,6 +358,10 @@ public interface LongImmArray {
         return DoubleImmArray.of(a);
     }
 
+    default ImmArray<Long> boxed() {
+        return mapToObj(Long::valueOf);
+    }
+
     /**
      * Returns the result that reduce elements of this array with the specified binary operator.
      * @param op binary operator

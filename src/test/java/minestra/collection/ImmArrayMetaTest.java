@@ -11,7 +11,7 @@ public final class ImmArrayMetaTest {
         "sortWith", "stream", "subSequence", "tail", "take", "takeWhile", "toArray", };
 
     static final String[] methodListForT = { "toList", "toSet", "toMapWithKey", "toMapWithValue", };
-    static final String[] methodListForNumber = { "average", "mapToObj", "max", "min", "sum", };
+    static final String[] methodListForNumber = { "average", "boxed", "mapToObj", "max", "min", "sum", };
     static final String[] methodListExceptInt = { "mapToInt", };
     static final String[] methodListOnlyInt = { "random", "range", };
     static final String[] methodListExceptLong = { "mapToLong", };

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.OptionalLong;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.LongFunction;
 import java.util.stream.LongStream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
@@ -74,6 +75,13 @@ public class LongImmArrayTest {
     @Test
     public void testAverage() {
         assertEquals(20.1428571428571d, arr(20L, 3L, 42L, 47L, 15L, -9L, 23L).average(), 0.00001d);
+    }
+
+    @Test
+    public void testBoxed() {
+        LongFunction<Long> f = Long::valueOf;
+        assertEquals(ImmArray.of(f.apply(41L), f.apply(52L), f.apply(43L)), arr(41L, 52L, 43L).boxed());
+        assertEquals(ImmArray.of(f.apply(345L)), arr(345L).boxed());
     }
 
     @Test

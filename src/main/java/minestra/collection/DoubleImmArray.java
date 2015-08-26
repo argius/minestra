@@ -327,6 +327,10 @@ public interface DoubleImmArray {
         return LongImmArray.of(a);
     }
 
+    default ImmArray<Double> boxed() {
+        return mapToObj(Double::valueOf);
+    }
+
     /**
      * Returns the result that reduce elements of this array with the specified binary operator.
      * @param op binary operator
