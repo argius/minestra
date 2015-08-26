@@ -411,6 +411,10 @@ public interface IntImmArray {
         return DoubleImmArray.of(a);
     }
 
+    default ImmArray<Integer> boxed() {
+        return mapToObj(Integer::valueOf);
+    }
+
     /**
      * Returns the result that reduce elements of this array with the specified binary operator.
      * @param op binary operator

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.OptionalDouble;
 import java.util.concurrent.atomic.DoubleAdder;
+import java.util.function.DoubleFunction;
 import java.util.stream.DoubleStream;
 import org.junit.Test;
 
@@ -34,6 +35,13 @@ public class DoubleImmArrayTest {
     @Test
     public void testAverage() {
         assertEquals(28.52571d, DoubleImmArrayTest.arr(42.08d, 27.37d, 36.63d, 41.03d, 12.11d, 50.10d, -9.64d).average(), 0.001d);
+    }
+
+    @Test
+    public void testBoxed() {
+        DoubleFunction<Double> f = Double::valueOf;
+        assertEquals(ImmArray.of(f.apply(41.1d), f.apply(52.1d), f.apply(43.1d)), arr(41.1d, 52.1d, 43.1d).boxed());
+        assertEquals(ImmArray.of(f.apply(345.1d)), arr(345.1d).boxed());
     }
 
     @Test

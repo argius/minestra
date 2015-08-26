@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalInt;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.Test;
@@ -72,6 +73,13 @@ public class IntImmArrayTest {
     @Test
     public void testAverage() {
         assertEquals(17.4285714285714, arr(22, 40, 2, 35, 37, -5, -9).average(), 0.00001d);
+    }
+
+    @Test
+    public void testBoxed() {
+        IntFunction<Integer> f = Integer::valueOf;
+        assertEquals(ImmArray.of(f.apply(41), f.apply(52), f.apply(43)), arr(41, 52, 43).boxed());
+        assertEquals(ImmArray.of(f.apply(345)), arr(345).boxed());
     }
 
     @Test
