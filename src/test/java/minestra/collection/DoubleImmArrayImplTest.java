@@ -48,9 +48,7 @@ public class DoubleImmArrayImplTest {
 
     @Test
     public void testHashCode() {
-        assertEquals(3147808, DoubleImmArrayTest.arr(1.1, 2.2).hashCode());
-        assertEquals(-1503132670, DoubleImmArrayTest.arr(1.1).hashCode());
-        assertEquals(962, DoubleImmArrayTest.arr().hashCode());
+        assertNotEquals(DoubleImmArrayTest.arr(1.1).hashCode(), DoubleImmArrayTest.arr(1.1, 2.2).hashCode());
     }
 
     @Test

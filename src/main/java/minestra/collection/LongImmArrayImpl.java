@@ -8,7 +8,6 @@ final class LongImmArrayImpl implements LongImmArray {
 
     static final LongImmArray EMPTY = new LongImmArrayImpl();
 
-    final int size;
     final long[] values;
 
     LongImmArrayImpl(long... a) {
@@ -16,8 +15,7 @@ final class LongImmArrayImpl implements LongImmArray {
     }
 
     LongImmArrayImpl(boolean withoutCopying, long... a) {
-        this.size = a.length;
-        this.values = withoutCopying ? a : Arrays.copyOf(a, size);
+        this.values = withoutCopying ? a : Arrays.copyOf(a, a.length);
     }
 
     @Override
@@ -27,12 +25,12 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public int size() {
-        return size;
+        return values.length;
     }
 
     @Override
     public LongImmArray filter(LongPredicate pred) {
-        final int n = size;
+        final int n = size();
         int p = 0;
         long[] a = new long[n];
         for (int i = 0; i < n; i++) {
@@ -46,7 +44,7 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public long sum() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return 0;
         }
@@ -62,7 +60,7 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public long product() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return 0;
         }
@@ -78,7 +76,7 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public OptionalLong max() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return OptionalLong.empty();
         }
@@ -96,7 +94,7 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public OptionalLong min() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return OptionalLong.empty();
         }
@@ -114,7 +112,8 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public LongImmArray sortWith(int fromIndex, int toIndex, LongComparator cmp) {
-        long[] a = Arrays.copyOf(values, size);
+        // TODO copy array
+        long[] a = Arrays.copyOf(values, values.length);
         sortWith0(a, fromIndex, toIndex, cmp);
         return new LongImmArrayImpl(a);
     }
@@ -165,14 +164,13 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public long[] toArray() {
-        return Arrays.copyOf(values, size);
+        return Arrays.copyOf(values, values.length);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + size;
         result = prime * result + Arrays.hashCode(values);
         return result;
     }
@@ -189,9 +187,6 @@ final class LongImmArrayImpl implements LongImmArray {
             return false;
         }
         LongImmArrayImpl other = (LongImmArrayImpl) obj;
-        if (size != other.size) {
-            return false;
-        }
         if (!Arrays.equals(values, other.values)) {
             return false;
         }

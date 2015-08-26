@@ -83,9 +83,7 @@ public class LongImmArrayImplTest {
 
     @Test
     public void testHashCode() {
-        assertEquals(2347, arr(11, 22).hashCode());
-        assertEquals(1034, arr(11).hashCode());
-        assertEquals(962, arr().hashCode());
+        assertNotEquals(arr(11).hashCode(), arr(11, 22).hashCode());
     }
 
     @Test

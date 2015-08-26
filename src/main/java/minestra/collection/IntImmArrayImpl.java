@@ -8,7 +8,6 @@ final class IntImmArrayImpl implements IntImmArray {
 
     static final IntImmArray EMPTY = new IntImmArrayImpl();
 
-    final int size;
     final int[] values;
 
     IntImmArrayImpl(int... a) {
@@ -16,8 +15,7 @@ final class IntImmArrayImpl implements IntImmArray {
     }
 
     IntImmArrayImpl(boolean withoutCopying, int... a) {
-        this.size = a.length;
-        this.values = withoutCopying ? a : Arrays.copyOf(a, size);
+        this.values = withoutCopying ? a : Arrays.copyOf(a, a.length);
     }
 
     @Override
@@ -27,12 +25,12 @@ final class IntImmArrayImpl implements IntImmArray {
 
     @Override
     public int size() {
-        return size;
+        return values.length;
     }
 
     @Override
     public IntImmArray filter(IntPredicate pred) {
-        final int n = size;
+        final int n = size();
         int p = 0;
         int[] a = new int[n];
         for (int i = 0; i < n; i++) {
@@ -46,7 +44,7 @@ final class IntImmArrayImpl implements IntImmArray {
 
     @Override
     public int sum() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return 0;
         }
@@ -62,7 +60,7 @@ final class IntImmArrayImpl implements IntImmArray {
 
     @Override
     public int product() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return 0;
         }
@@ -78,7 +76,7 @@ final class IntImmArrayImpl implements IntImmArray {
 
     @Override
     public OptionalInt max() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return OptionalInt.empty();
         }
@@ -96,7 +94,7 @@ final class IntImmArrayImpl implements IntImmArray {
 
     @Override
     public OptionalInt min() {
-        final int n = size;
+        final int n = size();
         if (n == 0) {
             return OptionalInt.empty();
         }
@@ -114,7 +112,7 @@ final class IntImmArrayImpl implements IntImmArray {
 
     @Override
     public IntImmArray sortWith(int fromIndex, int toIndex, IntComparator cmp) {
-        int[] a = Arrays.copyOf(values, size);
+        int[] a = toArray();
         sortWith0(a, fromIndex, toIndex, cmp);
         return new IntImmArrayImpl(a);
     }
@@ -165,14 +163,13 @@ final class IntImmArrayImpl implements IntImmArray {
 
     @Override
     public int[] toArray() {
-        return Arrays.copyOf(values, size);
+        return Arrays.copyOf(values, values.length);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + size;
         result = prime * result + Arrays.hashCode(values);
         return result;
     }
@@ -189,9 +186,6 @@ final class IntImmArrayImpl implements IntImmArray {
             return false;
         }
         IntImmArrayImpl other = (IntImmArrayImpl) obj;
-        if (size != other.size) {
-            return false;
-        }
         if (!Arrays.equals(values, other.values)) {
             return false;
         }

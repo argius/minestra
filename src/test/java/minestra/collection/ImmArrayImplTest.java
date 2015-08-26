@@ -43,9 +43,7 @@ public final class ImmArrayImplTest {
 
     @Test
     public void testHashCode() {
-        assertEquals(2347, ImmArray.of(11, 22).hashCode());
-        assertEquals(1034, ImmArray.of(11).hashCode());
-        assertEquals(962, ImmArray.of().hashCode());
+        assertNotEquals(ImmArray.of(11).hashCode(), ImmArray.of(11, 22).hashCode());
     }
 
     @Test
