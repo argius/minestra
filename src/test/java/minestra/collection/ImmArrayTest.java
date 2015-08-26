@@ -133,6 +133,13 @@ public final class ImmArrayTest {
     }
 
     @Test
+    public void testDropWhile() {
+        assertEquals(arr("aba", "abb"), arr("aaa", "aab", "aac", "aba", "abb").dropWhile(x -> x.startsWith("aa")));
+        assertEquals(arr("aaa1", "aab2", "aac3"), arr("aaa1", "aab2", "aac3").dropWhile(x -> x.startsWith("xx")));
+        assertEquals(arr(), arr("aaa1", "aab2", "aac3").dropWhile(x -> x.startsWith("a")));
+    }
+
+    @Test
     public void testExists() {
         assertTrue(arr("java", "scala", "perl", "ruby", "python").exists(x -> x.length() == 6));
         assertFalse(arr("java", "scala", "perl", "ruby", "python").exists(x -> x.length() == 7));

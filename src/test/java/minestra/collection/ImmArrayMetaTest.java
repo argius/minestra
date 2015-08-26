@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public final class ImmArrayMetaTest {
 
-    static final String[] methodList1 = { "at", "concat", "distinct", "drop", "empty", "exists", "filter", "find",
-            "fold", "forEach", "head", "indexWhere", "map", "of", "reduce", "reverse", "size", "sort", "sortWith",
-            "stream", "subSequence", "tail", "take", "takeWhile", "toArray", };
+    static final String[] methodList1 = { "at", "concat", "distinct", "drop", "dropWhile", "empty", "exists", "filter",
+        "find", "fold", "forEach", "head", "indexWhere", "map", "of", "reduce", "reverse", "size", "sort",
+        "sortWith", "stream", "subSequence", "tail", "take", "takeWhile", "toArray", };
 
     static final String[] methodListForT = { "toList", "toSet", "toMapWithKey", "toMapWithValue", };
     static final String[] methodListForNumber = { "average", "mapToObj", "max", "min", "sum", };
@@ -55,7 +55,7 @@ public final class ImmArrayMetaTest {
         checkMethods(c, methodListForNumber);
         checkMethods(c, methodListExceptInt);
         checkMethods(c, methodListExceptDouble);
-        }
+    }
 
     @Test
     public void testDoubleImmArrayImpl() {

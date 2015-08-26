@@ -56,6 +56,14 @@ public class DoubleImmArrayTest {
     }
 
     @Test
+    public void testDropWhile() {
+        assertEquals(arr(-1.34d, 1.92d, 29.95d), arr(14.59d, 24.80d, 34.88d, -1.34d, 1.92d, 29.95d).dropWhile(x -> x > 3.0d));
+        assertEquals(arr(-1.34d, 1.92d, 29.95d), arr(14.59d, 24.80d, 34.88d, -1.34d, 1.92d, 29.95d).dropWhile(x -> x > 0.0d));
+        assertEquals(arr(32.52d, 30.51d, -5.33d, 7.60d), arr(32.52d, 30.51d, -5.33d, 7.60d).dropWhile(x -> x > 32.6d));
+        assertEquals(arr(), arr().dropWhile(x -> x > 3.0d));
+    }
+
+    @Test
     public void testEmpty() {
         assertEquals(DoubleImmArrayTest.arr(), DoubleImmArray.empty());
     }
