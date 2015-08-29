@@ -1,0 +1,12 @@
+/* You can override this file with your own styles */
+body {
+  background-color: #fff;
+}
+
+h2 {
+  color: #9e9;
+}
+
+.section {
+  margin-bottom: 5em;
+}

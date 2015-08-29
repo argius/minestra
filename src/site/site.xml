@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="${project.name}">
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.4</version>
+  </skin>
+  <publishDate position="right" format="yyyy-MM-dd"/>
+  <body>
+    <menu name="Main" inherit="top">
+      <item name="Overview" href="index.html" />
+      <item name="Download" href="https://github.com/argius/minestra/releases" />
+    </menu>
+    <menu name="Document" inherit="top">
+      <item name="Javadoc" href="apidocs/overview-summary.html" />
+    </menu>
+  </body>
+</project>
