@@ -34,6 +34,10 @@ Please download JAR and add it to your classpath.
 Examples
 --------
 
+See also test classes.
+
+
+
 ### ImmArray
 
 ```
@@ -79,10 +83,6 @@ String s = res.string("key1");
 int i = res.integer("key2");
 boolean b = res.isTrue("key3");
 ```
-
-
-
-See also test classes.
 
 
 

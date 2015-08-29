@@ -6,6 +6,14 @@ Minestra is a small utilities library for Java8 and later.
 The word 'minestra' means soup in Italian. I love soups and there is no particular meaning for this name.
 
 
+See "Examples" section if you want to know more about features in this library.
+
+* Minestra has been compiled with compact1 profile.
+
+
+site: http://argius.net/minestra/
+
+
 Download
 --------
 
@@ -25,6 +33,10 @@ Please download JAR and add it to your classpath.
 
 Examples
 --------
+
+See also test classes.
+
+
 
 ### ImmArray
 
@@ -71,10 +83,6 @@ String s = res.string("key1");
 int i = res.integer("key2");
 boolean b = res.isTrue("key3");
 ```
-
-
-
-See also test classes.
 
 
 
