@@ -69,17 +69,17 @@ public interface ImmArray<T> extends Iterable<T> {
      */
     @SuppressWarnings("unchecked")
     default ImmArray<T> concat(ImmArray<? extends T> first, ImmArray<? extends T>... rest) {
-        int restSizes = 0;
+        int sizes = size() + first.size();
         for (int i = 0; i < rest.length; i++) {
-            restSizes += rest[i].size();
+            sizes += rest[i].size();
         }
-        List<T> a = new ArrayList<>(size() + first.size() + restSizes);
+        List<T> a = new ArrayList<>(sizes);
         Collections.addAll(a, toArray());
         Collections.addAll(a, first.toArray());
         for (ImmArray<? extends T> o : rest) {
             Collections.addAll(a, o.toArray());
         }
-        return ImmArray.of(a);
+        return of(a);
     }
 
     /**
