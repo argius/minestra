@@ -69,23 +69,15 @@ public interface ImmArray<T> extends Iterable<T> {
      */
     @SuppressWarnings("unchecked")
     default ImmArray<T> concat(ImmArray<? extends T> first, ImmArray<? extends T>... rest) {
-        // XXX varargs
-        final int selfLength = size();
-        final int firstLength = first.size();
-        int newLength = selfLength;
-        newLength += firstLength;
-        for (ImmArray<? extends T> o : rest) {
-            newLength += o.size();
+        int sizes = size() + first.size();
+        for (int i = 0; i < rest.length; i++) {
+            sizes += rest[i].size();
         }
-        // XXX copy twice
-        T[] a = Arrays.copyOf(toArray(), newLength);
-        int p = selfLength;
-        System.arraycopy(first.toArray(), 0, a, p, firstLength);
-        p += firstLength;
+        List<T> a = new ArrayList<>(sizes);
+        Collections.addAll(a, toArray());
+        Collections.addAll(a, first.toArray());
         for (ImmArray<? extends T> o : rest) {
-            final int length = o.size();
-            System.arraycopy(o.toArray(), 0, a, p, length);
-            p += length;
+            Collections.addAll(a, o.toArray());
         }
         return of(a);
     }
