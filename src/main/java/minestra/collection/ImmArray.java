@@ -356,7 +356,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @return the flatten array
      */
     default <R> ImmArray<R> flatten() {
-        return of(ImmArrayImpl.flatten0(toArray(), new ArrayList<>()));
+        return of(ImmArrayImpl.flatten0(this, new ArrayList<>()));
     }
 
     /**
@@ -384,7 +384,7 @@ public interface ImmArray<T> extends Iterable<T> {
      */
     default <S, R> ImmArray<R> flatMap(Function<? super S, ? extends R> mapper) {
         List<S> a = new ArrayList<>();
-        return of(ImmArrayImpl.flatten0(toArray(), a)).map(mapper);
+        return of(ImmArrayImpl.flatten0(this, a)).map(mapper);
     }
 
     /**
