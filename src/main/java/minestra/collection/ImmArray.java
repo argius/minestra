@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -425,17 +424,17 @@ public interface ImmArray<T> extends Iterable<T> {
     /**
      * Returns the result of folding the elements of this array by the specified operator.
      * @param value initial value
-     * @param f binary operator
+     * @param op binary operator
      * @return the result
      */
-    default T fold(T value, BiFunction<T, T, T> f) {
+    default T fold(T value, BinaryOperator<T> op) {
         switch (size()) {
             case 0:
                 return value;
             case 1:
-                return f.apply(value, at(0));
+                return op.apply(value, at(0));
             default:
-                return f.apply(value, tail().fold(at(0), f));
+                return op.apply(value, tail().fold(at(0), op));
         }
     }
 
