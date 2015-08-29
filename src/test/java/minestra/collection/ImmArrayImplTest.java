@@ -99,7 +99,7 @@ public final class ImmArrayImplTest {
     public void testFlatten0() throws Exception {
         List<String> a1 = new ArrayList<>();
         List<String> a2 =
-                ImmArrayImpl.flatten0(arr("1", Arrays.asList("2"), Stream.of("3", "A"), Optional.of("4"), arr0("5")), a1);
+                ImmArrayImpl.flatten0(arr0("1", Arrays.asList("2"), Stream.of("3", "A"), Optional.of("4"), arr0("5")), a1);
         assertSame(a1, a2);
         assertArrayEquals(arr0("1", "2","3","A", "4","5").toArray(), a2.toArray());
     }

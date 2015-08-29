@@ -59,8 +59,8 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
         return new ImmArrayImpl<>(a);
     }
 
-    static <T, R> List<R> flatten0(T[] array, List<R> list) {
-        for (T o : array) {
+    static <T, R> List<R> flatten0(Iterable<T> it, List<R> list) {
+        for (T o : it) {
             if (o instanceof ImmArray) {
                 @SuppressWarnings("unchecked")
                 ImmArray<R> x = (ImmArray<R>) o;

@@ -82,12 +82,12 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
 
     /**
      * Returns a PathIterator.
-     * @param path root directory to find
+     * @param root root directory to find
      * @param maxDepth the maximum number of directory levels to find
      * @return the PathIterator
      */
-    public static PathIterator of(Path path, int maxDepth) {
-        return new PathIterator(path, maxDepth);
+    public static PathIterator of(Path root, int maxDepth) {
+        return new PathIterator(root, maxDepth);
     }
 
     /**
