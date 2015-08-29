@@ -18,17 +18,15 @@ final class TestUtils {
     }
 
     static boolean hasMethod(Class<?> targetClass, String methodName) {
-        // System.out.println("----------");
-        if (isBlank(methodName))
+        if (isBlank(methodName)) {
             error("method name is empty");
+        }
         Predicate<? super Method> f = x -> x.getName().equals(methodName);
         for (Class<?> c : getAllRelatedClassesOf(targetClass)) {
-            // System.out.printf(">>>? %s %s %n", c, methodName);
-            // System.out.println(">>> " +
-            // Stream.of(c.getDeclaredMethods()).filter(f).collect(Collectors.toList()));
             Optional<Method> r = Stream.of(c.getDeclaredMethods()).filter(f).findFirst();
-            if (r.isPresent())
+            if (r.isPresent()) {
                 return true;
+            }
         }
         return false;
     }
@@ -36,13 +34,13 @@ final class TestUtils {
     private static Set<Class<?>> getAllRelatedClassesOf(Class<?> c) {
         Set<Class<?>> a = new LinkedHashSet<>();
         a.add(c);
-        for (Class<?> class1 : c.getInterfaces())
+        for (Class<?> class1 : c.getInterfaces()) {
             a.addAll(getAllRelatedClassesOf(class1));
+        }
         Class<?> superClass = c.getSuperclass();
-        if (superClass != null)
+        if (superClass != null) {
             a.add(superClass);
-        // System.out.println( a.stream().map(x ->
-        // x.getSimpleName()).collect(Collectors.toList()));
+        }
         return a;
     }
 
