@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.apache.commons.collections4.IteratorUtils;
@@ -173,9 +174,14 @@ public final class ImmArrayTest {
 
     @Test
     public void testHead() {
-        assertEquals(Optional.of("java"), arr("java", "scala", "perl", "ruby", "python").head());
-        assertEquals(Optional.of("scala"), arr("scala", "perl", "ruby", "python").head());
-        assertEquals(Optional.empty(), arr().head());
+        assertEquals("java", arr("java", "scala", "perl", "ruby", "python").head());
+        assertEquals("scala", arr("scala", "perl", "ruby", "python").head());
+        try {
+            arr().head();
+            fail();
+        } catch (NoSuchElementException e) {
+            assertEquals("head", e.getMessage());
+        }
     }
 
     @Test
@@ -190,6 +196,20 @@ public final class ImmArrayTest {
         assertEquals(4, arr("java", "scala", "perl", "ruby", "python").indexWhere(x -> x.length() == 6));
         assertEquals(-1, arr("java", "scala", "perl", "ruby", "python").indexWhere(x -> x.length() == 7));
         assertEquals(-1, arr("").tail().indexWhere(x -> x.isEmpty()));
+    }
+
+    @Test
+    public void testLast() throws Exception {
+        assertEquals("python", arr("java", "scala", "perl", "ruby", "python").last());
+        assertEquals("0X0", arr("0X0").last());
+        ImmArray<String> a = arr("Z*9");
+        assertEquals(a.head(), a.last());
+        try {
+            arr().last();
+            fail();
+        } catch (NoSuchElementException e) {
+            assertEquals("last", e.getMessage());
+        }
     }
 
     @Test
