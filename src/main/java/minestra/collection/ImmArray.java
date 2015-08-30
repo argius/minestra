@@ -23,6 +23,7 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * An immutable array of <code>T</code>.
@@ -552,8 +553,8 @@ public interface ImmArray<T> extends Iterable<T> {
      */
     default <R> Map<R, T> toMapWithValue(Function<? super T, ? extends R> gen) {
         Map<R, T> m = new HashMap<>();
-        for (T k : this) {
-            m.put(gen.apply(k), k);
+        for (T v : this) {
+            m.put(gen.apply(v), v);
         }
         return m;
     }
@@ -563,7 +564,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @return the stream
      */
     default Stream<T> stream() {
-        return toList().stream();
+        return StreamSupport.stream(spliterator(), false);
     }
 
     /**
@@ -575,7 +576,7 @@ public interface ImmArray<T> extends Iterable<T> {
         final int n = size();
         String[] a = new String[n];
         for (int i = 0; i < n; i++) {
-            a[i] = Objects.toString(at(i), null);
+            a[i] = Objects.toString(at(i), "");
         }
         return a;
     }
