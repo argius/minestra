@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -218,10 +219,26 @@ public interface ImmArray<T> extends Iterable<T> {
 
     /**
      * Returns the first element of this array if it is not empty.
-     * @return the first element as an optional value
+     * @return the first element
+     * @throws NoSuchElementException if this array is empty
      */
-    default Optional<T> head() {
-        return (size() == 0) ? Optional.empty() : Optional.of(at(0));
+    default T head() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("head");
+        }
+        return at(0);
+    }
+
+    /**
+     * Returns the last element of this array if it is not empty.
+     * @return the last element
+     * @throws NoSuchElementException if this array is empty
+     */
+    default T last() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("last");
+        }
+        return at(size() - 1);
     }
 
     /**
@@ -268,7 +285,6 @@ public interface ImmArray<T> extends Iterable<T> {
      */
     default ImmArray<T> dropWhile(Predicate<T> pred) {
         final int index = indexWhere(pred.negate());
-        // TODO refactor
         return (index >= 0) ? drop(index) : empty();
     }
 
