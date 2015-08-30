@@ -41,14 +41,13 @@ public final class ImmArrayTest {
 
         @Override
         public T[] toArray() {
-            return Arrays.copyOf(values, size());
+            return Arrays.copyOf(values, values.length);
         }
 
         @Override
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + size();
             result = prime * result + Arrays.hashCode(values);
             return result;
         }
@@ -64,10 +63,8 @@ public final class ImmArrayTest {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            ImmArrayImpl0<?> other = (ImmArrayImpl0<?>) obj;
-            if (size() != other.size()) {
-                return false;
-            }
+            @SuppressWarnings("rawtypes")
+            ImmArrayImpl0 other = (ImmArrayImpl0) obj;
             if (!Arrays.equals(values, other.values)) {
                 return false;
             }
@@ -101,7 +98,9 @@ public final class ImmArrayTest {
 
     @Test
     public void testAt() {
-        // fail("Not yet implemented");
+        ImmArray<String> arr = arr0("Java", "Scala", "Perl", "Ruby", "Python");
+        assertEquals("Scala", arr.at(1));
+        assertEquals("Ruby", arr.at(3));
     }
 
     @SuppressWarnings("unchecked")
@@ -170,6 +169,23 @@ public final class ImmArrayTest {
         assertEquals("FACE", arr("A", "C", "E").fold("F", (x, y) -> x + y));
         assertEquals("FA", arr("A").fold("F", (x, y) -> x + y));
         assertEquals("F", arr("").tail().fold("F", (x, y) -> x + y));
+    }
+
+    @Test
+    public void testForEach() {
+        List<String> a = new ArrayList<>();
+        ImmArray<String> arr = arr("Java", "Scala", "Perl", "Ruby", "Python");
+        arr.forEach(x -> {
+            a.add(x.toUpperCase());
+            a.add(x.toLowerCase());
+        });
+        arr.forEach(x -> {
+            a.add(x.toLowerCase());
+            a.add(x.toUpperCase());
+        });
+        assertEquals(
+            arr("JAVA", "java", "SCALA", "scala", "PERL", "perl", "RUBY", "ruby", "PYTHON", "python", "java", "JAVA",
+                "scala", "SCALA", "perl", "PERL", "ruby", "RUBY", "python", "PYTHON"), ImmArray.of(a));
     }
 
     @Test

@@ -14,54 +14,93 @@ import org.junit.Test;
 
 public class IntImmArrayTest {
 
+    static final class IntImmArrayImpl0 implements IntImmArray {
+
+        int[] values;
+
+        IntImmArrayImpl0(int... a) {
+            this.values = a;
+        }
+
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public int at(int index) {
+            return 0;
+        }
+
+        @Override
+        public int sum() {
+            return 0;
+        }
+
+        @Override
+        public int product() {
+            return 0;
+        }
+
+        @Override
+        public OptionalInt max() {
+            return null;
+        }
+
+        @Override
+        public OptionalInt min() {
+            return null;
+        }
+
+        @Override
+        public IntImmArray sortWith(int fromIndex, int toIndex, IntComparator cmp) {
+            return null;
+        }
+
+        @Override
+        public int[] toArray() {
+            return Arrays.copyOf(values, values.length);
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + Arrays.hashCode(values);
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            IntImmArrayImpl0 other = (IntImmArrayImpl0) obj;
+            if (!Arrays.equals(values, other.values)) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public String toString() {
+            return "IntImmArrayImpl0 [values=" + Arrays.toString(values) + "]";
+        }
+
+    }
+
     static IntImmArray arr(int... a) {
         return IntImmArray.of(a);
     }
 
     static IntImmArray arr0(int... a) {
-        return new IntImmArray() {
-
-            @Override
-            public int at(int index) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public OptionalInt max() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public OptionalInt min() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public int product() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public int size() {
-                return a.length;
-            }
-
-            @Override
-            public IntImmArray sortWith(int fromIndex, int toIndex, IntComparator cmp) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public int sum() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public int[] toArray() {
-                return Arrays.copyOf(a, a.length);
-            }
-
-        };
+        return new IntImmArrayImpl0(a);
     }
 
     @Test

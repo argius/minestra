@@ -37,6 +37,15 @@ public final class ImmArrayImplTest {
     }
 
     @Test
+    public void testFlatten0() throws Exception {
+        List<String> a1 = new ArrayList<>();
+        List<String> a2 =
+                ImmArrayImpl.flatten0(arr0("1", Arrays.asList("2"), Stream.of("3", "A"), Optional.of("4"), arr0("5")), a1);
+        assertSame(a1, a2);
+        assertArrayEquals(arr0("1", "2", "3", "A", "4", "5").toArray(), a2.toArray());
+    }
+
+    @Test
     public void testFold() {
         // fail("Not yet implemented");
     }
@@ -68,40 +77,6 @@ public final class ImmArrayImplTest {
     @Test
     public void testMapToIntAsArray() {
         // fail("Not yet implemented");
-    }
-
-    // @Test
-    // public void testFilter() {
-    // Sequence<String> arr = arr("java", "scala", "perl", "ruby", "python");
-    // assertEquals(arr("java", "perl", "ruby"), arr.filter(x -> x.length() ==
-    // 4));
-    // }
-    //
-    // @Test
-    // public void testHead() {
-    // assertEquals(Optional.of("java"), arr("java", "scala", "perl", "ruby",
-    // "python").head());
-    // assertEquals(Optional.of("scala"), arr("scala", "perl", "ruby",
-    // "python").head());
-    // assertEquals(Optional.empty(), arr().head());
-    // }
-    //
-    // @Test
-    // public void testTail() {
-    // assertEquals(arr("scala", "perl", "ruby"), arr("java", "scala", "perl",
-    // "ruby").tail());
-    // assertEquals(arr("perl", "ruby"), arr("java", "scala", "perl",
-    // "ruby").tail().tail());
-    // assertEquals(arr(), arr("scala").tail().tail());
-    // }
-
-    @Test
-    public void testFlatten0() throws Exception {
-        List<String> a1 = new ArrayList<>();
-        List<String> a2 =
-                ImmArrayImpl.flatten0(arr0("1", Arrays.asList("2"), Stream.of("3", "A"), Optional.of("4"), arr0("5")), a1);
-        assertSame(a1, a2);
-        assertArrayEquals(arr0("1", "2","3","A", "4","5").toArray(), a2.toArray());
     }
 
     @Test
@@ -168,24 +143,6 @@ public final class ImmArrayImplTest {
     public void testToList() {
         // fail("Not yet implemented");
     }
-
-    // @Test
-    // public void testToMapWithKey() {
-    // assertEquals("{python=6, java=4, scala=5, perl=4, ruby=4}", // -
-    // arr("java", "scala", "perl", "ruby",
-    // "python").toMapWithKey(String::length).toString());
-    // assertEquals("{1=1, 2=2, 3=3}", arr("1", "2",
-    // "3").toMapWithKey(String::toUpperCase).toString());
-    // }
-    //
-    // @Test
-    // public void testToMapWithValue() {
-    // assertEquals("{JAVA=java, SCALA=scala, PERL=perl, RUBY=ruby, PYTHON=python}",
-    // arr("java", "scala", "perl", "ruby",
-    // "python").toMapWithValue(String::toUpperCase).toString());
-    // assertEquals("{1=1, 2=2, 3=3}", arr("1", "2",
-    // "3").toMapWithValue(String::toUpperCase).toString());
-    // }
 
     @Test
     public void testToSet() {
