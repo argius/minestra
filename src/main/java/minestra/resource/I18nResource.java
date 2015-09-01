@@ -39,6 +39,16 @@ public interface I18nResource {
 
     /**
      * Returns an I18nResource.
+     * @param pkg target package
+     * @param locales target locales
+     * @return the I18nResource
+     */
+    static I18nResource create(Package pkg, Locale... locales) {
+        return create(toResourceName(pkg), locales);
+    }
+
+    /**
+     * Returns an I18nResource.
      * @param location target location
      * @param locales target locales
      * @return the I18nResource
@@ -59,6 +69,15 @@ public interface I18nResource {
      */
     static String toResourceName(Class<?> c) {
         return "/" + c.getName().replace('.', '/');
+    }
+
+    /**
+     * Returns the resource name which converts from the specified Package.
+     * @param pkg target package
+     * @return the resource name
+     */
+    static String toResourceName(Package pkg) {
+        return String.format("/%s/", pkg.getName().replace('.', '/'));
     }
 
     /**
