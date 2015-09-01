@@ -3,7 +3,7 @@ package minestra.collection;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class LongComparatorTest {
+public final class LongComparatorTest {
 
     @Test
     public void testCompareTo() {

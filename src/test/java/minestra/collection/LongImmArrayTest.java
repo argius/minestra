@@ -14,87 +14,6 @@ import org.junit.Test;
 
 public final class LongImmArrayTest {
 
-    static final class LongImmArrayImpl0 implements LongImmArray {
-
-        private long[] values;
-
-        LongImmArrayImpl0(long... a) {
-            this.values = a;
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public long at(int index) {
-            return 0;
-        }
-
-        @Override
-        public long sum() {
-            return 0;
-        }
-
-        @Override
-        public long product() {
-            return 0;
-        }
-
-        @Override
-        public OptionalLong max() {
-            return null;
-        }
-
-        @Override
-        public OptionalLong min() {
-            return null;
-        }
-
-        @Override
-        public LongImmArray sortWith(int fromIndex, int toIndex, LongComparator cmp) {
-            return null;
-        }
-
-        @Override
-        public long[] toArray() {
-            return Arrays.copyOf(values, values.length);
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + Arrays.hashCode(values);
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            LongImmArrayImpl0 other = (LongImmArrayImpl0) obj;
-            if (!Arrays.equals(values, other.values)) {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        public String toString() {
-            return "LongImmArrayImpl0 [values=" + Arrays.toString(values) + "]";
-        }
-
-    }
-
     static LongImmArray arr(long... a) {
         return of(a);
     }
@@ -105,10 +24,6 @@ public final class LongImmArrayTest {
 
     static LongImmArray arr(LongStream stream) {
         return of(stream.toArray());
-    }
-
-    static LongImmArray arr0(long... a) {
-        return new LongImmArrayImpl0(a);
     }
 
     @Test
@@ -304,12 +219,12 @@ public final class LongImmArrayTest {
         long[] arg = larr(134, -53, 343, 8, 3, -1);
         long[] expected = Arrays.copyOf(arg, arg.length);
         Arrays.sort(expected);
-        assertEquals(arr(expected), arr0(arg).sort());
+        assertEquals(arr(expected), arr(arg).sort());
     }
 
     @Test
     public void testStream() {
-        final LongImmArray a = arr0(2, 3, 4);
+        final LongImmArray a = arr(2, 3, 4);
         try (LongStream st = a.stream()) {
             assertEquals(OptionalLong.of(24), st.reduce((x, y) -> x * y));
         }

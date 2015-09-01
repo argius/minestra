@@ -14,7 +14,7 @@ import org.junit.Test;
 public final class ImmArrayImplTest {
 
     @SafeVarargs
-    static <T> ImmArrayImpl<T> arr0(T... a) {
+    static <T> ImmArrayImpl<T> arr(T... a) {
         return new ImmArrayImpl<>(true, a);
     }
 
@@ -32,17 +32,16 @@ public final class ImmArrayImplTest {
         assertEquals(arr1, ImmArray.of("11", "22"));
         assertNotEquals(arr1, null);
         assertNotEquals(arr1, "");
-        assertNotEquals(arr1, arr0("11", "22", "33"));
-        assertNotEquals(arr1, arr0("11", "33"));
+        assertNotEquals(arr1, arr("11", "22", "33"));
+        assertNotEquals(arr1, arr("11", "33"));
     }
 
     @Test
     public void testFlatten0() throws Exception {
         List<String> a1 = new ArrayList<>();
-        List<String> a2 =
-                ImmArrayImpl.flatten0(arr0("1", Arrays.asList("2"), Stream.of("3", "A"), Optional.of("4"), arr0("5")), a1);
+        List<String> a2 = ImmArrayImpl.flatten0(arr("1", Arrays.asList("2"), Stream.of("3", "A"), Optional.of("4"), arr("5")), a1);
         assertSame(a1, a2);
-        assertArrayEquals(arr0("1", "2", "3", "A", "4", "5").toArray(), a2.toArray());
+        assertArrayEquals(arr("1", "2", "3", "A", "4", "5").toArray(), a2.toArray());
     }
 
     @Test
@@ -58,7 +57,7 @@ public final class ImmArrayImplTest {
     @Test
     public void testIterator() {
         StringBuilder sb = new StringBuilder();
-        for (Iterator<String> it = arr0("11", "22").iterator(); it.hasNext();) {
+        for (Iterator<String> it = arr("11", "22").iterator(); it.hasNext();) {
             sb.append("AA").append(it.next()).append("ZZ/");
         }
         assertEquals("AA11ZZ/AA22ZZ/", sb.toString());
@@ -66,7 +65,7 @@ public final class ImmArrayImplTest {
 
     @Test
     public void testMap() {
-        assertEquals(ImmArray.of("==11::", "==22::"), arr0("11", "22").map(x -> "==" + x + "::"));
+        assertEquals(ImmArray.of("==11::", "==22::"), arr("11", "22").map(x -> "==" + x + "::"));
     }
 
     @Test
@@ -131,7 +130,7 @@ public final class ImmArrayImplTest {
 
     @Test
     public void testToArray() {
-        assertArrayEquals(arr("11", "22"), arr0("11", "22").toArray());
+        assertArrayEquals(oarr("11", "22"), arr("11", "22").toArray());
     }
 
     @Test
@@ -146,7 +145,7 @@ public final class ImmArrayImplTest {
 
     @Test
     public void testToSet() {
-        assertEquals(new HashSet<>(Arrays.asList("11", "22")), arr0("11", "22").toSet());
+        assertEquals(new HashSet<>(Arrays.asList("11", "22")), arr("11", "22").toSet());
     }
 
     @Test
@@ -159,7 +158,7 @@ public final class ImmArrayImplTest {
 
     @Test
     public void testToStringArray() {
-        assertArrayEquals(arr("11", "22"), arr0("11", "22").toStringArray());
+        assertArrayEquals(oarr("11", "22"), arr("11", "22").toStringArray());
     }
 
 }

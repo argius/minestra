@@ -1,82 +1,18 @@
 package minestra.collection;
 
+import static minestra.collection.TestUtils.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
-import org.apache.commons.collections4.IteratorUtils;
 import org.junit.Test;
 
 public final class ImmArrayTest {
-
-    static final class ImmArrayImpl0<T> implements ImmArray<T> {
-
-        private T[] values;
-
-        @SafeVarargs
-        ImmArrayImpl0(T... a) {
-            this.values = a;
-        }
-
-        @Override
-        public T at(int index) {
-            return values[index];
-        }
-
-        @Override
-        public Iterator<T> iterator() {
-            return IteratorUtils.arrayIterator(values);
-        }
-
-        @Override
-        public int size() {
-            return values.length;
-        }
-
-        @Override
-        public T[] toArray() {
-            return Arrays.copyOf(values, values.length);
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + Arrays.hashCode(values);
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            @SuppressWarnings("rawtypes")
-            ImmArrayImpl0 other = (ImmArrayImpl0) obj;
-            if (!Arrays.equals(values, other.values)) {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        public String toString() {
-            return "ImmArrayImpl0" + Arrays.toString(values);
-        }
-
-    }
 
     @SafeVarargs
     static <T> ImmArray<T> arr(T... a) {
@@ -91,14 +27,14 @@ public final class ImmArrayTest {
         return ImmArray.of(stream);
     }
 
-    @SafeVarargs
-    static <T> ImmArray<T> arr0(T... a) {
-        return new ImmArrayImpl0<>(Arrays.copyOf(a, a.length));
-    }
+    //    @SafeVarargs
+    //    static <T> ImmArray<T> arr0(T... a) {
+    //        return new ImmArrayImpl0<>(Arrays.copyOf(a, a.length));
+    //    }
 
     @Test
     public void testAt() {
-        ImmArray<String> arr = arr0("Java", "Scala", "Perl", "Ruby", "Python");
+        ImmArray<String> arr = arr("Java", "Scala", "Perl", "Ruby", "Python");
         assertEquals("Scala", arr.at(1));
         assertEquals("Ruby", arr.at(3));
     }
@@ -121,8 +57,8 @@ public final class ImmArrayTest {
 
     @Test
     public void testDistinct() {
-        String[] a = TestUtils.arr("java", "scala", "perl", "java", "python");
-        assertEquals(arr("java", "scala", "perl", "python"), arr0(a).distinct());
+        String[] a = oarr("java", "scala", "perl", "java", "python");
+        assertEquals(arr("java", "scala", "perl", "python"), arr(a).distinct());
     }
 
     @Test
@@ -158,10 +94,6 @@ public final class ImmArrayTest {
         assertEquals(Optional.of("scala"), arr.find(x -> x.length() == 5));
         assertEquals(Optional.of("python"), arr.find(x -> x.length() > 4, 2));
         assertEquals(Optional.empty(), arr.find(x -> x.endsWith("a"), 2));
-        ImmArrayImpl0<String> o = new ImmArrayImpl0<>(arr.toArray());
-        assertEquals(Optional.of("scala"), o.find(x -> x.length() == 5));
-        assertEquals(Optional.of("python"), o.find(x -> x.length() > 4, 2));
-        assertEquals(Optional.empty(), o.find(x -> x.endsWith("a"), 2));
     }
 
     @Test
@@ -230,22 +162,22 @@ public final class ImmArrayTest {
 
     @Test
     public void testMap() {
-        assertEquals(arr("JAVA", "SCALA", "PERL"), arr0(TestUtils.arr("java", "scala", "perl")).map(String::toUpperCase));
+        assertEquals(arr("JAVA", "SCALA", "PERL"), arr(oarr("java", "scala", "perl")).map(String::toUpperCase));
     }
 
     @Test
     public void testMapToDouble() {
-        assertEquals(DoubleImmArray.of(100.1, 2.3, 33.5), arr0(TestUtils.arr("100.1", "2.3", "33.5")).mapToDouble(Double::parseDouble));
+        assertEquals(DoubleImmArray.of(100.1, 2.3, 33.5), arr(oarr("100.1", "2.3", "33.5")).mapToDouble(Double::parseDouble));
     }
 
     @Test
     public void testMapToInt() {
-        assertEquals(IntImmArray.of(100, 2, 33), arr0(TestUtils.arr("100", "2", "33")).mapToInt(Integer::parseInt));
+        assertEquals(IntImmArray.of(100, 2, 33), arr(oarr("100", "2", "33")).mapToInt(Integer::parseInt));
     }
 
     @Test
     public void testMapToLong() {
-        assertEquals(LongImmArray.of(100L, 2L, 33L), arr0(TestUtils.arr("100", "2", "33")).mapToLong(Long::parseLong));
+        assertEquals(LongImmArray.of(100L, 2L, 33L), arr(oarr("100", "2", "33")).mapToLong(Long::parseLong));
     }
 
     @Test
@@ -275,7 +207,7 @@ public final class ImmArrayTest {
 
     @Test
     public void testReverse() {
-        String[] arg = TestUtils.arr("java", "scala", "perl", "ruby", "python");
+        String[] arg = oarr("java", "scala", "perl", "ruby", "python");
         List<String> a = new ArrayList<>();
         Collections.addAll(a, arg);
         Collections.reverse(a);
@@ -294,7 +226,7 @@ public final class ImmArrayTest {
 
     @Test
     public void testSeqStreamOfE() {
-        String[] a = TestUtils.arr("java", "scala", "perl", "java", "python");
+        String[] a = oarr("java", "scala", "perl", "java", "python");
         assertEquals(ImmArray.of(a), ImmArray.of(Stream.of(a)));
     }
 
@@ -305,10 +237,10 @@ public final class ImmArrayTest {
 
     @Test
     public void testSort() {
-        String[] a = TestUtils.arr("java", "scala", "perl", "ruby", "python");
+        String[] a = oarr("java", "scala", "perl", "ruby", "python");
         String[] expected = Arrays.copyOf(a, a.length);
         Arrays.sort(expected);
-        assertEquals(ImmArray.of(expected), arr0(a).sort());
+        assertEquals(ImmArray.of(expected), arr(a).sort());
     }
 
     @Test
@@ -350,7 +282,7 @@ public final class ImmArrayTest {
 
     @Test
     public void testToArrayIntFunctionOfE() {
-        assertArrayEquals(TestUtils.arr("11", "22"), arr0("11", "22").toArray(String[]::new));
+        assertArrayEquals(oarr("11", "22"), arr("11", "22").toArray(String[]::new));
     }
 
     @Test
@@ -362,24 +294,24 @@ public final class ImmArrayTest {
     public void testToMapWithKey() {
         assertEquals("{python=6, java=4, scala=5, perl=4, ruby=4}", //
             ImmArray.of("java", "scala", "perl", "ruby", "python").toMapWithKey(String::length).toString());
-        assertEquals("{1=1, 2=2, 3=3}", arr0("1", "2", "3").toMapWithKey(String::toUpperCase).toString());
+        assertEquals("{1=1, 2=2, 3=3}", arr("1", "2", "3").toMapWithKey(String::toUpperCase).toString());
     }
 
     @Test
     public void testToMapWithValue() {
         assertEquals("{JAVA=java, SCALA=scala, PERL=perl, RUBY=ruby, PYTHON=python}",
             ImmArray.of("java", "scala", "perl", "ruby", "python").toMapWithValue(String::toUpperCase).toString());
-        assertEquals("{1=1, 2=2, 3=3}", arr0("1", "2", "3").toMapWithValue(String::toUpperCase).toString());
+        assertEquals("{1=1, 2=2, 3=3}", arr("1", "2", "3").toMapWithValue(String::toUpperCase).toString());
     }
 
     @Test
     public void testToSet() {
-        assertEquals(new HashSet<>(Arrays.asList("11", "22")), arr0("11", "22").toSet());
+        assertEquals(new HashSet<>(Arrays.asList("11", "22")), arr("11", "22").toSet());
     }
 
     @Test
     public void testToStringArray() {
-        assertArrayEquals(TestUtils.arr("11", "22"), arr0("11", "22").toStringArray());
+        assertArrayEquals(oarr("11", "22"), arr("11", "22").toStringArray());
     }
 
 }

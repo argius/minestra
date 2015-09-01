@@ -11,7 +11,7 @@ import java.util.function.DoubleFunction;
 import java.util.stream.DoubleStream;
 import org.junit.Test;
 
-public class DoubleImmArrayTest {
+public final class DoubleImmArrayTest {
 
     private static final double DELTA = 0.00001d;
 

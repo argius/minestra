@@ -7,18 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.Test;
 
-public class IntImmArrayImplTest {
+public final class IntImmArrayImplTest {
 
-    static IntImmArray arr(int... a) {
-        return IntImmArray.of(a); // without copying
-    }
-
-    static IntImmArrayImpl arr0(int... a) {
-        return new IntImmArrayImpl(false, a); // with copying
-    }
-
-    static IntImmArrayImpl arr1(int... a) {
-        return new IntImmArrayImpl(false, a); // with copying ???
+    static IntImmArrayImpl arr(int... a) {
+        return new IntImmArrayImpl(a);
     }
 
     @Test
@@ -40,8 +32,8 @@ public class IntImmArrayImplTest {
         assertEquals(arr1, arr(11, 22));
         assertNotEquals(arr1, null);
         assertNotEquals(arr1, "");
-        assertNotEquals(arr1, arr0(11, 22, 33));
-        assertNotEquals(arr1, arr0(11, 33));
+        assertNotEquals(arr1, arr(11, 22, 33));
+        assertNotEquals(arr1, arr(11, 33));
     }
 
     @Test
@@ -56,7 +48,7 @@ public class IntImmArrayImplTest {
 
     @Test
     public void testHashCode() {
-        assertNotEquals(arr1(11).hashCode(), arr(11, 22).hashCode());
+        assertNotEquals(arr(11).hashCode(), arr(11, 22).hashCode());
     }
 
     @Test
@@ -68,7 +60,7 @@ public class IntImmArrayImplTest {
     public void testMax() {
         assertEquals(33, arr(4, 23, 33, 1, 5, 19).max().getAsInt());
         assertEquals(343, arr(-1, 3, 8, 343, -53, 134).max().getAsInt());
-        assertTrue(arr1(-1).max().isPresent());
+        assertTrue(arr(-1).max().isPresent());
         assertFalse(arr().max().isPresent());
     }
 
@@ -76,7 +68,7 @@ public class IntImmArrayImplTest {
     public void testMin() {
         assertEquals(1, arr(4, 23, 33, 1, 5, 19).min().getAsInt());
         assertEquals(-53, arr(-1, 3, 8, 343, -53, 134).min().getAsInt());
-        assertTrue(arr1(-1).min().isPresent());
+        assertTrue(arr(-1).min().isPresent());
         assertFalse(arr().min().isPresent());
     }
 
@@ -95,17 +87,6 @@ public class IntImmArrayImplTest {
             assertArrayEquals(expected.toArray(), actual2.toArray());
         }
     }
-
-    // @Test
-    // public void testHead() {
-    // assertEquals(4, arr(4, 23, 33, 1, 5, 19).head().getAsInt());
-    // }
-    //
-    // @Test
-    // public void testTail() {
-    // assertArrayEquals(arr(34, 1, 5, 19).toArray(), arr(23, 34, 1, 5,
-    // 19).tail().toArray());
-    // }
 
     @Test
     public void testOfIntArray() {
@@ -140,7 +121,7 @@ public class IntImmArrayImplTest {
     @Test
     public void testProduct() {
         assertEquals(720, arr(2, 3, 4, 5, 6).product());
-        assertEquals(2, arr1(2).product());
+        assertEquals(2, arr(2).product());
         assertEquals(0, arr().product());
     }
 
@@ -148,7 +129,7 @@ public class IntImmArrayImplTest {
     public void testReverse() {
         int[] arg = iarr(134, -53, 343, 8, 3, -1);
         IntImmArray expected = arr(-1, 3, 8, 343, -53, 134);
-        assertEquals(expected, arr1(arg).reverse());
+        assertEquals(expected, arr(arg).reverse());
     }
 
     @Test
@@ -173,7 +154,7 @@ public class IntImmArrayImplTest {
 
     @Test
     public void testStream() {
-        assertEquals(1, arr0(1).stream().count());
+        assertEquals(1, arr(1).stream().count());
     }
 
     @Test
@@ -184,7 +165,7 @@ public class IntImmArrayImplTest {
     @Test
     public void testSum() {
         assertEquals(434, arr(134, -53, 343, 8, 3, -1).sum());
-        assertEquals(134, arr1(134).sum());
+        assertEquals(134, arr(134).sum());
         assertEquals(0, arr().sum());
     }
 
@@ -196,7 +177,7 @@ public class IntImmArrayImplTest {
     @Test
     public void testToString() {
         assertEquals("[11, 22]", arr(11, 22).toString());
-        assertEquals("[11]", arr1(11).toString());
+        assertEquals("[11]", arr(11).toString());
         assertEquals("[]", arr().toString());
     }
 

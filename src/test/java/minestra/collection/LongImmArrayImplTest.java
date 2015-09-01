@@ -6,14 +6,10 @@ import java.util.Arrays;
 import java.util.OptionalLong;
 import org.junit.Test;
 
-public class LongImmArrayImplTest {
+public final class LongImmArrayImplTest {
 
     static LongImmArrayImpl arr(long... a) {
         return new LongImmArrayImpl(false, a);
-    }
-
-    static LongImmArrayImpl arr0(long... a) {
-        return new LongImmArrayImpl(true, a);
     }
 
     @Test
@@ -46,8 +42,8 @@ public class LongImmArrayImplTest {
         assertEquals(arr1, arr(11, 22));
         assertNotEquals(arr1, null);
         assertNotEquals(arr1, "");
-        assertNotEquals(arr1, arr0(11, 22, 33));
-        assertNotEquals(arr1, arr0(11, 33));
+        assertNotEquals(arr1, arr(11, 22, 33));
+        assertNotEquals(arr1, arr(11, 33));
     }
 
     @Test
@@ -163,8 +159,8 @@ public class LongImmArrayImplTest {
     @Test
     public final void testSortWith() {
         long[] arg = larr(134, -53, 343, 8, 3, -1);
-        arr(arg).sort().reverse().equals(arr0(arg).sortWith(LongComparator.REVERSE));
-        assertEquals(arr(2, 8).sort().reverse(), arr0(2, 8).sortWith(LongComparator.REVERSE));
+        arr(arg).sort().reverse().equals(arr(arg).sortWith(LongComparator.REVERSE));
+        assertEquals(arr(2, 8).sort().reverse(), arr(2, 8).sortWith(LongComparator.REVERSE));
     }
 
     @Test
