@@ -27,11 +27,6 @@ public final class ImmArrayTest {
         return ImmArray.of(stream);
     }
 
-    //    @SafeVarargs
-    //    static <T> ImmArray<T> arr0(T... a) {
-    //        return new ImmArrayImpl0<>(Arrays.copyOf(a, a.length));
-    //    }
-
     @Test
     public void testAt() {
         ImmArray<String> arr = arr("Java", "Scala", "Perl", "Ruby", "Python");
