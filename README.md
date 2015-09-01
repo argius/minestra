@@ -1,5 +1,7 @@
 Minestra
 ========
+[![Build Status](https://travis-ci.org/argius/minestra.png)](https://travis-ci.org/argius/minestra)
+
 Minestra is a small utilities library for Java8 and later.
 
 
