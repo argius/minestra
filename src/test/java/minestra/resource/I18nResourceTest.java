@@ -4,17 +4,17 @@ import static org.junit.Assert.*;
 import java.util.Locale;
 import org.junit.Test;
 
-public class I18nResurceTest {
+public class I18nResourceTest {
 
     static final String rootPackageName = getRootPackage();
     static final Locale JA = Locale.JAPANESE;
     static final I18nResource rootBase = I18nResource.create(Locale.JAPAN);
     static final I18nResource pkgBase = I18nResource.create("/" + rootPackageName + "/", JA);
-    static final I18nResource res = rootBase.derive(I18nResurceTest.class, JA);
-    static final I18nResource resEn = rootBase.derive(I18nResurceTest.class, Locale.ENGLISH, JA);
+    static final I18nResource res = rootBase.derive(I18nResourceTest.class, JA);
+    static final I18nResource resEn = rootBase.derive(I18nResourceTest.class, Locale.ENGLISH, JA);
 
     static String getRootPackage() {
-        return I18nResurceTest.class.getPackage().getName().replaceFirst("\\..+", "");
+        return I18nResourceTest.class.getPackage().getName().replaceFirst("\\..+", "");
     }
 
     @Test
