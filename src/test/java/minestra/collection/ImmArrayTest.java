@@ -231,6 +231,11 @@ public final class ImmArrayTest {
     }
 
     @Test
+    public void testSlice() {
+        assertEquals(ImmArray.of("scala", "perl", "ruby"), arr("java", "scala", "perl", "ruby", "python").slice(1, 3));
+    }
+
+    @Test
     public void testSort() {
         String[] a = oarr("java", "scala", "perl", "ruby", "python");
         String[] expected = Arrays.copyOf(a, a.length);
@@ -246,12 +251,6 @@ public final class ImmArrayTest {
     @Test
     public void testStream() {
         assertEquals("@@a1@@bb@@ccc", ImmArray.of("a1", "bb", "ccc").stream().reduce("", (x, y) -> x + "@@" + y));
-    }
-
-    @Test
-    public void testSubSequence() {
-        assertEquals(ImmArray.of("scala", "perl", "ruby"),
-            arr("java", "scala", "perl", "ruby", "python").subSequence(1, 3));
     }
 
     @Test

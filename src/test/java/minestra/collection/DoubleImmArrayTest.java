@@ -241,6 +241,11 @@ public final class DoubleImmArrayTest {
     }
 
     @Test
+    public void testSlice() {
+        assertEquals(arr(-53, 343, 8, 3), arr(134, -53, 343, 8, 3, -1).slice(1, 4));
+    }
+
+    @Test
     public void testSort() {
         double[] arg = darr(134, -53, 343, 8, 3, -1);
         double[] expected = Arrays.copyOf(arg, arg.length);
@@ -251,11 +256,6 @@ public final class DoubleImmArrayTest {
     @Test
     public void testStream() {
         // fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSubSequence() {
-        assertEquals(arr(-53, 343, 8, 3), arr(134, -53, 343, 8, 3, -1).subSequence(1, 4));
     }
 
     @Test

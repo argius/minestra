@@ -169,15 +169,6 @@ public final class LongImmArrayImplTest {
     }
 
     @Test
-    public void testSubarruence() {
-        assertEquals(arr(1, 6, 2), arr(1, 6, 2).subSequence(0, 2));
-        assertEquals(arr(1, 6, 2), arr(1, 6, 2).subSequence(0, 3));
-        assertEquals(arr(6, 2), arr(1, 6, 2).subSequence(1, 2));
-        assertEquals(arr(1, 6), arr(1, 6, 2).subSequence(0, 1));
-        assertEquals(arr(), arr(1, 6, 2).subSequence(3, 4));
-    }
-
-    @Test
     public void testSum() {
         assertEquals(434L, arr(134L, -53, 343, 8, 3, -1).sum());
         assertEquals(134L, arr(134L).sum());

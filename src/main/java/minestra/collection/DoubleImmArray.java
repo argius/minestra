@@ -216,7 +216,7 @@ public interface DoubleImmArray {
      * @return the tail elements as an array
      */
     default DoubleImmArray tail() {
-        return subSequence(1, Integer.MAX_VALUE);
+        return slice(1, Integer.MAX_VALUE);
     }
 
     /**
@@ -225,7 +225,7 @@ public interface DoubleImmArray {
      * @return the array
      */
     default DoubleImmArray take(int count) {
-        return (count == 0) ? empty() : subSequence(0, count - 1);
+        return (count == 0) ? empty() : slice(0, count - 1);
     }
 
     /**
@@ -235,7 +235,7 @@ public interface DoubleImmArray {
      */
     default DoubleImmArray takeWhile(DoublePredicate pred) {
         final int index = indexWhere(pred.negate());
-        return (index > 0) ? subSequence(0, index - 1) : empty();
+        return (index > 0) ? slice(0, index - 1) : empty();
     }
 
     /**
@@ -245,7 +245,7 @@ public interface DoubleImmArray {
      */
     default DoubleImmArray drop(int count) {
         final int n = size();
-        return (count >= n) ? empty() : subSequence(count, n);
+        return (count >= n) ? empty() : slice(count, n);
     }
 
     /**
@@ -264,7 +264,7 @@ public interface DoubleImmArray {
      * @param to exclusive index of end
      * @return the array
      */
-    default DoubleImmArray subSequence(int from, int to) {
+    default DoubleImmArray slice(int from, int to) {
         final int n = size() - 1;
         final int to0 = (to < n) ? to : n;
         return new DoubleImmArrayImpl(true, Arrays.copyOfRange(toArray(), from, to0 + 1));

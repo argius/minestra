@@ -300,7 +300,7 @@ public interface IntImmArray {
      * @return the tail elements as an array
      */
     default IntImmArray tail() {
-        return subSequence(1, Integer.MAX_VALUE);
+        return slice(1, Integer.MAX_VALUE);
     }
 
     /**
@@ -309,7 +309,7 @@ public interface IntImmArray {
      * @return the array
      */
     default IntImmArray take(int count) {
-        return (count == 0) ? empty() : subSequence(0, count - 1);
+        return (count == 0) ? empty() : slice(0, count - 1);
     }
 
     /**
@@ -319,7 +319,7 @@ public interface IntImmArray {
      */
     default IntImmArray takeWhile(IntPredicate pred) {
         final int index = indexWhere(pred.negate());
-        return (index > 0) ? subSequence(0, index - 1) : empty();
+        return (index > 0) ? slice(0, index - 1) : empty();
     }
 
     /**
@@ -329,7 +329,7 @@ public interface IntImmArray {
      */
     default IntImmArray drop(int count) {
         final int n = size();
-        return (count >= n) ? empty() : subSequence(count, n);
+        return (count >= n) ? empty() : slice(count, n);
     }
 
     /**
@@ -348,7 +348,7 @@ public interface IntImmArray {
      * @param to exclusive index of end
      * @return the array
      */
-    default IntImmArray subSequence(int from, int to) {
+    default IntImmArray slice(int from, int to) {
         final int n = size() - 1;
         final int to0 = (to < n) ? to : n;
         return of(Arrays.copyOfRange(toArray(), from, to0 + 1));
