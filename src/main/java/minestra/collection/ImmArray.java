@@ -246,7 +246,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @return the tail elements as an array
      */
     default ImmArray<T> tail() {
-        return (size() > 1) ? subSequence(1, Integer.MAX_VALUE) : empty();
+        return (size() > 1) ? slice(1, Integer.MAX_VALUE) : empty();
     }
 
     /**
@@ -255,7 +255,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @return the array
      */
     default ImmArray<T> take(int count) {
-        return (count == 0) ? empty() : subSequence(0, count - 1);
+        return (count == 0) ? empty() : slice(0, count - 1);
     }
 
     /**
@@ -265,7 +265,7 @@ public interface ImmArray<T> extends Iterable<T> {
      */
     default ImmArray<T> takeWhile(Predicate<T> pred) {
         final int index = indexWhere(pred.negate());
-        return (index > 0) ? subSequence(0, index - 1) : empty();
+        return (index > 0) ? slice(0, index - 1) : empty();
     }
 
     /**
@@ -275,7 +275,7 @@ public interface ImmArray<T> extends Iterable<T> {
      */
     default ImmArray<T> drop(int count) {
         final int n = size();
-        return (count >= n) ? empty() : subSequence(count, n);
+        return (count >= n) ? empty() : slice(count, n);
     }
 
     /**
@@ -294,7 +294,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @param to exclusive index of end
      * @return the array
      */
-    default ImmArray<T> subSequence(int from, int to) {
+    default ImmArray<T> slice(int from, int to) {
         final int n = size() - 1;
         final int to0 = (to < n) ? to : n;
         return of(toList().subList(from, to0 + 1));

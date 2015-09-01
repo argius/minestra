@@ -147,7 +147,7 @@ public final class LongImmArrayTest {
     @Test
     public void testMapToInt() {
         assertArrayEquals(iarr(36, -6, 42, -24, 60, -6), //
-            arr(12L, -2L, 14L, -8L, 20L, -2L).mapToInt(x -> (int)(x * 3)).toArray());
+            arr(12L, -2L, 14L, -8L, 20L, -2L).mapToInt(x -> (int) (x * 3)).toArray());
     }
 
     @Test
@@ -215,6 +215,15 @@ public final class LongImmArrayTest {
     }
 
     @Test
+    public void testSlice() {
+        assertEquals(arr(1, 6, 2), arr(1, 6, 2).slice(0, 2));
+        assertEquals(arr(1, 6, 2), arr(1, 6, 2).slice(0, 3));
+        assertEquals(arr(6, 2), arr(1, 6, 2).slice(1, 2));
+        assertEquals(arr(1, 6), arr(1, 6, 2).slice(0, 1));
+        assertEquals(arr(), arr(1, 6, 2).slice(3, 4));
+    }
+
+    @Test
     public final void testSort() {
         long[] arg = larr(134, -53, 343, 8, 3, -1);
         long[] expected = Arrays.copyOf(arg, arg.length);
@@ -228,15 +237,6 @@ public final class LongImmArrayTest {
         try (LongStream st = a.stream()) {
             assertEquals(OptionalLong.of(24), st.reduce((x, y) -> x * y));
         }
-    }
-
-    @Test
-    public void testSubSequence() {
-        assertEquals(arr(1, 6, 2), arr(1, 6, 2).subSequence(0, 2));
-        assertEquals(arr(1, 6, 2), arr(1, 6, 2).subSequence(0, 3));
-        assertEquals(arr(6, 2), arr(1, 6, 2).subSequence(1, 2));
-        assertEquals(arr(1, 6), arr(1, 6, 2).subSequence(0, 1));
-        assertEquals(arr(), arr(1, 6, 2).subSequence(3, 4));
     }
 
     @Test

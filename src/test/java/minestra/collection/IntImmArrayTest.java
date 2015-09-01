@@ -327,6 +327,15 @@ public final class IntImmArrayTest {
     }
 
     @Test
+    public void testSlice() {
+        assertEquals(arr(1, 6, 2), arr(1, 6, 2).slice(0, 2));
+        assertEquals(arr(1, 6, 2), arr(1, 6, 2).slice(0, 3));
+        assertEquals(arr(6, 2), arr(1, 6, 2).slice(1, 2));
+        assertEquals(arr(1, 6), arr(1, 6, 2).slice(0, 1));
+        assertEquals(arr(), arr(1, 6, 2).slice(3, 4));
+    }
+
+    @Test
     public void testSort() {
         int[] arg = iarr(134, -53, 343, 8, 3, -1);
         int[] expected = Arrays.copyOf(arg, arg.length);
@@ -344,15 +353,6 @@ public final class IntImmArrayTest {
     @Test
     public void testStream() {
         assertArrayEquals(iarr(16, 38, 48, 20, -5), arr(16, 38, 48, 20, -5).stream().toArray());
-    }
-
-    @Test
-    public void testSubSequence() {
-        assertEquals(arr(1, 6, 2), arr(1, 6, 2).subSequence(0, 2));
-        assertEquals(arr(1, 6, 2), arr(1, 6, 2).subSequence(0, 3));
-        assertEquals(arr(6, 2), arr(1, 6, 2).subSequence(1, 2));
-        assertEquals(arr(1, 6), arr(1, 6, 2).subSequence(0, 1));
-        assertEquals(arr(), arr(1, 6, 2).subSequence(3, 4));
     }
 
     @Test
