@@ -6,14 +6,15 @@ import org.junit.Test;
 
 public class I18nResourceTest {
 
-    static final String rootPackageName = getRootPackage();
+    static final String rootPackageName = getRootPackageName();
     static final Locale JA = Locale.JAPANESE;
     static final I18nResource rootBase = I18nResource.create(Locale.JAPAN);
     static final I18nResource pkgBase = I18nResource.create("/" + rootPackageName + "/", JA);
+    static final I18nResource pkgBaseHere = I18nResource.create(I18nResourceTest.class.getPackage());
     static final I18nResource res = rootBase.derive(I18nResourceTest.class, JA);
     static final I18nResource resEn = rootBase.derive(I18nResourceTest.class, Locale.ENGLISH, JA);
 
-    static String getRootPackage() {
+    static String getRootPackageName() {
         return I18nResourceTest.class.getPackage().getName().replaceFirst("\\..+", "");
     }
 
@@ -27,6 +28,8 @@ public class I18nResourceTest {
         // pkg-base
         assertEquals("pkg-default", pkgBase.string("key1"));
         assertEquals(910, pkgBase.integer("key2"));
+        // pkg-base-here
+        assertEquals("pkg:minestra.collection", pkgBaseHere.string("key1"));
         // res
         assertEquals("true", res.string("key3a"));
         assertEquals("false", res.string("key3b"));
