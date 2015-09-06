@@ -4,9 +4,13 @@ body {
 }
 
 h2 {
-  color: #9e9;
+  color: #ec6;
 }
 
 .section {
   margin-bottom: 5em;
+}
+
+#bannerRight {
+  margin: 1ex 1ex;
 }
