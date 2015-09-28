@@ -137,7 +137,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @param pred predicate
      * @return <code>true</code> if the element exists
      */
-    default boolean exists(Predicate<T> pred) {
+    default boolean exists(Predicate<? super T> pred) {
         final int n = size();
         for (int i = 0; i < n; i++) {
             if (pred.test(at(i))) {
@@ -167,7 +167,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @param pred predicate
      * @return the optional value
      */
-    default Optional<T> find(Predicate<T> pred) {
+    default Optional<T> find(Predicate<? super T> pred) {
         return find(pred, 0);
     }
 
@@ -177,7 +177,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @param start number of beginning index to find
      * @return the element as an optional value
      */
-    default Optional<T> find(Predicate<T> pred, int start) {
+    default Optional<T> find(Predicate<? super T> pred, int start) {
         for (int i = start, n = size(); i < n; i++) {
             T o = at(i);
             if (pred.test(o)) {
@@ -207,7 +207,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @param pred predicate
      * @return number of the index, returns <code>-1</code> if not found
      */
-    default int indexWhere(Predicate<T> pred) {
+    default int indexWhere(Predicate<? super T> pred) {
         final int n = size();
         for (int i = 0; i < n; i++) {
             if (pred.test(at(i))) {
@@ -263,7 +263,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @param pred predicate
      * @return the array
      */
-    default ImmArray<T> takeWhile(Predicate<T> pred) {
+    default ImmArray<T> takeWhile(Predicate<? super T> pred) {
         final int index = indexWhere(pred.negate());
         return (index > 0) ? slice(0, index - 1) : empty();
     }
@@ -283,7 +283,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @param pred predicate
      * @return the array
      */
-    default ImmArray<T> dropWhile(Predicate<T> pred) {
+    default ImmArray<T> dropWhile(Predicate<? super T> pred) {
         final int index = indexWhere(pred.negate());
         return (index >= 0) ? drop(index) : empty();
     }

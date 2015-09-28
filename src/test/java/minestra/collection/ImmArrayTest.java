@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.junit.Test;
 
@@ -68,6 +69,9 @@ public final class ImmArrayTest {
         assertEquals(arr("aba", "abb"), arr("aaa", "aab", "aac", "aba", "abb").dropWhile(x -> x.startsWith("aa")));
         assertEquals(arr("aaa1", "aab2", "aac3"), arr("aaa1", "aab2", "aac3").dropWhile(x -> x.startsWith("xx")));
         assertEquals(arr(), arr("aaa1", "aab2", "aac3").dropWhile(x -> x.startsWith("a")));
+
+        Predicate<CharSequence> pred = x -> x.length() == 4;
+        assertEquals(arr("scala", "perl", "ruby"), arr("java", "scala", "perl", "ruby").dropWhile(pred));
     }
 
     @Test
@@ -75,12 +79,18 @@ public final class ImmArrayTest {
         assertTrue(arr("java", "scala", "perl", "ruby", "python").exists(x -> x.length() == 6));
         assertFalse(arr("java", "scala", "perl", "ruby", "python").exists(x -> x.length() == 7));
         assertFalse(arr("").tail().exists(x -> x.isEmpty()));
+
+        Predicate<CharSequence> pred = x -> true;
+        assertTrue(arr("java", "scala", "perl", "ruby", "python").exists(pred));
     }
 
     @Test
     public void testFilter() {
         ImmArray<String> arr = arr("java", "scala", "perl", "ruby", "python");
         assertEquals(arr("java", "perl", "ruby"), arr.filter(x -> x.length() == 4));
+
+        Predicate<CharSequence> pred = x -> x.length() == 4;
+        assertEquals(arr("java", "perl", "ruby"), arr.filter(pred));
     }
 
     @Test
@@ -89,6 +99,9 @@ public final class ImmArrayTest {
         assertEquals(Optional.of("scala"), arr.find(x -> x.length() == 5));
         assertEquals(Optional.of("python"), arr.find(x -> x.length() > 4, 2));
         assertEquals(Optional.empty(), arr.find(x -> x.endsWith("a"), 2));
+
+        Predicate<CharSequence> pred = x -> x.length() == 4 && x.charAt(0) == 'p';
+        assertEquals(Optional.of("perl"), arr.find(pred));
     }
 
     @Test
@@ -139,6 +152,9 @@ public final class ImmArrayTest {
         assertEquals(4, arr("java", "scala", "perl", "ruby", "python").indexWhere(x -> x.length() == 6));
         assertEquals(-1, arr("java", "scala", "perl", "ruby", "python").indexWhere(x -> x.length() == 7));
         assertEquals(-1, arr("").tail().indexWhere(x -> x.isEmpty()));
+
+        Predicate<CharSequence> pred = x -> x.length() >= 5;
+        assertEquals(1, arr("java", "scala", "perl", "ruby", "python").indexWhere(pred));
     }
 
     @Test
@@ -272,6 +288,9 @@ public final class ImmArrayTest {
         assertEquals(ImmArray.of("java", "scala"), i1.takeWhile(x -> !x.equals("perl")));
         assertEquals(ImmArray.of("java"), i1.takeWhile(x -> !x.equals("scala")));
         assertEquals(ImmArray.of(), i1.takeWhile(x -> x.equals("perl")));
+
+        Predicate<CharSequence> pred = x -> x.charAt(x.length() - 1) == 'a';
+        assertEquals(ImmArray.of("java", "scala"), i1.takeWhile(pred));
     }
 
     @Test
