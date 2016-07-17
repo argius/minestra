@@ -91,6 +91,14 @@ public final class PathString implements Path {
     }
 
     /**
+     * Returns the extension string of specified path.
+     * @return the extension string
+     */
+    public Optional<String> extension() {
+        return extension(path.toString());
+    }
+
+    /**
      * Returns whether this path has specified extension.
      * @param extension extension string
      * @return <code>true</code> if this path has specified path
