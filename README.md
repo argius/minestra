@@ -42,6 +42,9 @@ See also test classes.
 
 ### ImmArray
 
+The classes of `ImmArray` are mere array wrappers and provides functional operations without functional DSL.
+Neither pipeline nor any performance improvement strategies.
+
 ```
 // import java.util.*;
 // import minestra.collection.*;
@@ -52,9 +55,19 @@ ImmArray<String> a = ImmArray.of(Arrays.asList("1"), Optional.of("2"), ImmArray.
 // => [1, 2, 3, A, 5, B, 6, 7]
 ```
 
+```
+// import java.util.*;
+// import java.util.stream.*;
+// import minestra.collection.*;
+
+List<String> list1 = IntStream.of(1, 2, 3).mapToObj(x -> "#" + x).collect(Collectors.toList());
+List<String> list2 = IntImmArray.of(1, 2, 3).mapToObj(x -> "#" + x).toList();
+```
 
 
 ### PathIterator
+
+`PathIterator` is an iterator which walks through a file tree like `Files.find()`.
 
 ```
 // import java.nio.file.*;
@@ -69,8 +82,23 @@ for (Path x : PathIterator.of(Paths.get("/tmp"))) {
 ```
 
 
+### PathString
+
+`PathString` is an extension of `java.nio.file.Path` .
+
+```
+// import minestra.file.PathString;
+
+PathString path1 = PathString.of("/tmp/file.dat");
+System.out.println(path1.extension()); // => Optional[dat]
+PathString path2 = PathString.of("/tmp/file");
+System.out.println(path2.extension()); // => Optional.empty
+```
+
 
 ### I18nResource
+
+`I18nResource` provides a small framework which changes text resource files by locale.
 
 ```
 // import java.util.*;
