@@ -126,7 +126,7 @@ public interface ImmArray<T> extends Iterable<T> {
 
     /**
      * Returns whether this array is empty.
-     * @return <code>true</code> if this is empty.
+     * @return <code>true</code> if this array is empty.
      */
     default boolean isEmpty() {
         return size() == 0;
@@ -135,7 +135,7 @@ public interface ImmArray<T> extends Iterable<T> {
     /**
      * Returns whether the element which satisfies predicate exists in this array.
      * @param pred predicate
-     * @return <code>true</code> if the element exists
+     * @return <code>true</code> if the element exists in this array
      */
     default boolean exists(Predicate<? super T> pred) {
         final int n = size();
@@ -316,9 +316,9 @@ public interface ImmArray<T> extends Iterable<T> {
     }
 
     /**
-     * Returns a mapping int array created by applying a function to each of the elements of this array.
+     * Returns a mapped int array created by applying a function to each of the elements of this array.
      * @param mapper function as a mapper
-     * @return the mapping array
+     * @return the mapped array
      */
     default IntImmArray mapToInt(ToIntFunction<? super T> mapper) {
         final int n = size();
@@ -330,9 +330,9 @@ public interface ImmArray<T> extends Iterable<T> {
     }
 
     /**
-     * Returns a mapping long array created by applying a function to each of the elements of this array.
+     * Returns a mapped long array created by applying a function to each of the elements of this array.
      * @param mapper function as a mapper
-     * @return the mapping array
+     * @return the mapped array
      */
     default LongImmArray mapToLong(ToLongFunction<? super T> mapper) {
         final int n = size();
@@ -344,9 +344,9 @@ public interface ImmArray<T> extends Iterable<T> {
     }
 
     /**
-     * Returns a mapping double array created by applying a function to each of the elements of this array.
+     * Returns a mapped double array created by applying a function to each of the elements of this array.
      * @param mapper function as a mapper
-     * @return the mapping array
+     * @return the mapped array
      */
     default DoubleImmArray mapToDouble(ToDoubleFunction<? super T> mapper) {
         final int n = size();

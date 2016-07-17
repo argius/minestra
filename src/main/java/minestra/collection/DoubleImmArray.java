@@ -288,7 +288,7 @@ public interface DoubleImmArray {
      * Returns an object array created by applying a function to each of the elements of this array.
      * @param <R> type of result array elements
      * @param mapper function as a mapper
-     * @return the mapping array
+     * @return the mapped array
      */
     default <R> ImmArray<R> mapToObj(DoubleFunction<R> mapper) {
         final int n = size();
@@ -302,7 +302,7 @@ public interface DoubleImmArray {
     /**
      * Returns an int array created by applying a function to each of the elements of this array.
      * @param mapper function as a mapper
-     * @return the mapping array
+     * @return the mapped array
      */
     default IntImmArray mapToInt(DoubleToIntFunction mapper) {
         final int n = size();
@@ -316,7 +316,7 @@ public interface DoubleImmArray {
     /**
      * Returns a long array created by applying a function to each of the elements of this array.
      * @param mapper function as a mapper
-     * @return the mapping array
+     * @return the mapped array
      */
     default LongImmArray mapToLong(DoubleToLongFunction mapper) {
         final int n = size();
@@ -327,6 +327,10 @@ public interface DoubleImmArray {
         return LongImmArray.of(a);
     }
 
+    /**
+     * Returns an object array created by applying boxing to each element in this array.
+     * @return the object array
+     */
     default ImmArray<Double> boxed() {
         return mapToObj(Double::valueOf);
     }
