@@ -112,8 +112,7 @@ final class LongImmArrayImpl implements LongImmArray {
 
     @Override
     public LongImmArray sortWith(int fromIndex, int toIndex, LongComparator cmp) {
-        // TODO copy array
-        long[] a = Arrays.copyOf(values, values.length);
+        long[] a = toArray();
         sortWith0(a, fromIndex, toIndex, cmp);
         return new LongImmArrayImpl(a);
     }

@@ -97,7 +97,7 @@ final class DoubleImmArrayImpl implements DoubleImmArray {
 
     @Override
     public DoubleImmArray sortWith(int fromIndex, int toIndex, DoubleComparator cmp) {
-        double[] a = Arrays.copyOf(values, values.length);
+        double[] a = toArray();
         sortWith0(a, fromIndex, toIndex, cmp);
         return new DoubleImmArrayImpl(a);
     }
