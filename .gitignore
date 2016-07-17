@@ -1,2 +1,7 @@
-/target/
-/bin/
+/bin
+/target
+/build
+/.gradle/
+/.classpath
+/.project
+/worktrees/
