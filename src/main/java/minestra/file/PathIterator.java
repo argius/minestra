@@ -2,6 +2,7 @@ package minestra.file;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -115,8 +116,8 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
                 break;
             }
             Path dir = dirs.poll();
-            try {
-                Files.newDirectoryStream(dir).forEach(x -> {
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+                stream.forEach(x -> {
                     if ((x.getNameCount() - rootDepth) <= maxDepth) {
                         q.offer(x);
                         if (Files.isDirectory(x)) {
