@@ -1,0 +1,15 @@
+
+key1=tes\
+t
+
+# skip comment line
+#
+
+key2=skip-comment
+
+# only key
+key3
+
+# EOF before EOL
+eof= A\
+B\

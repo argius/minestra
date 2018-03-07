@@ -13,6 +13,7 @@ import java.util.OptionalInt;
 import java.util.Scanner;
 import java.util.function.Function;
 
+@Deprecated
 final class I18nResourceImpl implements I18nResource {
 
     private static final String EXT = ".txt";

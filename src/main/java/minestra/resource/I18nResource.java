@@ -16,6 +16,7 @@ import java.util.stream.Stream;
  *  text resource internationalized by locales.
  *  </p>
  */
+@Deprecated
 public interface I18nResource {
 
     /**

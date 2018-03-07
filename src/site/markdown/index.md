@@ -104,22 +104,31 @@ System.out.println(path2.extension()); // => Optional.empty
 ```
 
 
-### I18nResource
+### PropsRef, ResourceSheaf
 
-`I18nResource` provides a small framework which changes text resource files by locale.
+`PropsRef` provides access to Properties.
+`ResourceSheaf` is similar to `ResourceBundle`, and provides access to message resources.
 
 ```
 // import java.util.*;
-// import minestra.resource.*;
+// import minestra.text.*;
 
-I18nResource rootBase = I18nResource.create(Locale.JAPAN);
-I18nResource pkgBase = I18nResource.create("/yourpkg/", Locale.JAPAN);
-I18nResource res = rootBase.derive(YourClass.class);
-I18nResource resJa = rootBase.derive(YourClass.class, Locale.JAPAN);
-
-String s = res.string("key1");
-int i = res.integer("key2");
-boolean b = res.isTrue("key3");
+// resource file:
+// minestra/messages_en
+//   key1=en
+// minestra/messages
+//   key1=no-suffix
+//   key2=MSG
+ResourceSheaf res = ResourceSheaf.create(getClass()).withLocation("minestra/").withMessages().withLocales(Locale.ENGLISH);
+Properties props = new Properties();
+props.setProperty("key1", "A");
+props.setProperty("key2", "B");
+props.setProperty("key3", "C");
+PropsRef pr = PropsRef.aggregate(res, PropsRef.wrap(props));
+pr.getProperty("key1"); // => en
+pr.string("key1"); // => en
+pr.string("key2"); // => MSG
+pr.string("key3"); // => C
 ```
 
 
