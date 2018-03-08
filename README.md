@@ -13,7 +13,7 @@ See "Examples" section if you want to know more about features in this library.
 * Minestra has been compiled with compact1 profile.
 
 
-site: http://argius.net/minestra/
+site: http://argius.github.io/minestra/
 
 
 Download
