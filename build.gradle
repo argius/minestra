@@ -23,6 +23,10 @@ version = '1.0.0-beta3'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+task showVersionNumber {
+    println version
+}
+
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
