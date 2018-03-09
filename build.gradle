@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'application'
 
 repositories {
     jcenter()
@@ -19,8 +18,6 @@ version = '1.0.0-beta3'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
-
-mainClassName = ''
 
 def encoding = { it.encoding = "UTF-8" }
 tasks.withType(AbstractCompile) each { encoding it.options }
