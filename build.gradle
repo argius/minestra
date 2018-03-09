@@ -19,6 +19,3 @@ version = '1.0.0-beta3'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-def encoding = { it.encoding = "UTF-8" }
-tasks.withType(AbstractCompile) each { encoding it.options }
-tasks.withType(GroovyCompile) each { encoding it.groovyOptions }
