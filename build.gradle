@@ -42,6 +42,7 @@ artifacts {
 }
 
 signing {
+    required { hasProperty("signing.keyId") }
     sign configurations.archives
 }
 
