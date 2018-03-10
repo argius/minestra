@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.util.Locale;
 import org.junit.Test;
 
+@SuppressWarnings("deprecation")
 public class I18nResourceTest {
 
     static final String rootPackageName = getRootPackageName();
