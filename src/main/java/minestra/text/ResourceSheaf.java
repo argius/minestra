@@ -97,6 +97,10 @@ public final class ResourceSheaf implements PropsRef {
         // @formatter:on
     }
 
+    /**
+     * Returns a list of paths to search for resources.
+     * @return a list of paths
+     */
     public List<String> getPathList() {
         if (location.isEmpty()) {
             return Collections.emptyList();
@@ -224,7 +228,14 @@ public final class ResourceSheaf implements PropsRef {
         return location.replaceFirst("/[^/]+$", "/") + name;
     }
 
-    // same way to withName("message")
+    /**
+     * Returns an instance replaced with "messages" as a name.
+     *
+     * <p>
+     * This method behaves in the same way as the invocation <code>withName("messages")</code>.
+     * </p>
+     * @return new instance
+     */
     public ResourceSheaf withMessages() {
         return withName("messages");
     }

@@ -53,7 +53,7 @@ public interface PropsRef {
     /**
      * Returns the string of specified key.
      * @param key key for the value
-     * @param defaultValue default string value if it contains key
+     * @param defaultValue the value to be returned if there is no value of the specified key
      * @return the string value
      */
     default String string(String key, String defaultValue) {
@@ -71,8 +71,8 @@ public interface PropsRef {
 
     /**
      * Returns the {@link Optional} value of formatted string with {@link MessageFormat}.
-     * @param key message key
-     * @param args message arguments for format
+     * @param key key for the format string
+     * @param args arguments to apply to the format string
      * @return formatted string
      */
     default Optional<String> formatOpt(String key, Object... args) {
@@ -81,15 +81,16 @@ public interface PropsRef {
 
     /**
      * Returns the formatted string with {@link MessageFormat}.
-     * @param key key for the value
-     * @return the string value
+     * @param key key for the format string
+     * @param args arguments to apply to the format string
+     * @return the formatted string
      */
     default String format(String key, Object... args) {
         return formatOpt(key, args).orElse("");
     }
 
     /**
-     * Returns the int of specified key.
+     * Returns the optional int value of specified key.
      * @param key key for the value
      * @return the OptionalInt value
      */
@@ -113,7 +114,7 @@ public interface PropsRef {
     /**
      * Returns the int value of specified key.
      * @param key key for the value
-     * @param defaultValue default int value if it contains key
+     * @param defaultValue the value to be returned if there is no value of the specified key
      * @return the int value
      */
     default int integer(String key, int defaultValue) {
