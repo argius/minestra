@@ -8,4 +8,4 @@ branches:
     - master
     - develop
 
-script: ./gradlew test
+script: ./gradlew test -P -PsonatypeUsername=argius -PsonatypePassword=
