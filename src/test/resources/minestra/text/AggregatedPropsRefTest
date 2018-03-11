@@ -1,0 +1,11 @@
+
+key1=AggregatedPropsRef-value1
+key2=84
+
+name=a
+Name=b
+NAME=c
+
+num=84
+Val=62
+fallThrough=String

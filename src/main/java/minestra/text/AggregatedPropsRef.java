@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -27,6 +29,16 @@ final class AggregatedPropsRef implements PropsRef {
         return refList.stream().flatMap(x -> x.stringOpt(key).map(Stream::of).orElseGet(Stream::empty)).findFirst();
     }
 
-    // TODO override integerOpt to ignore NumberFormatException
+    @Override
+    public OptionalInt integerOpt(String key) {
+        Function<PropsRef, OptionalInt> f = x -> {
+            try {
+                return x.integerOpt(key);
+            } catch (NumberFormatException e) { // ignore
+            }
+            return OptionalInt.empty();
+        };
+        return refList.stream().map(f).filter(OptionalInt::isPresent).mapToInt(x -> x.getAsInt()).findFirst();
+    }
 
 }
