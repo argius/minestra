@@ -37,6 +37,10 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
+compileJava {
+    options.compilerArgs += ['-profile', 'compact1']
+}
+
 artifacts {
     archives javadocJar, sourcesJar
 }
