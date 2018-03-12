@@ -50,7 +50,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @return the new ImmArray
      */
     static <T> ImmArray<T> of(Collection<T> list) {
-        return new ImmArrayImpl<T>(list);
+        return new ImmArrayImpl<>(list);
     }
 
     /**
@@ -60,7 +60,7 @@ public interface ImmArray<T> extends Iterable<T> {
      * @return the new ImmArray
      */
     static <T> ImmArray<T> of(Stream<T> stream) {
-        return new ImmArrayImpl<T>(stream.collect(Collectors.toList()));
+        return new ImmArrayImpl<>(stream.collect(Collectors.toList()));
     }
 
     /**
