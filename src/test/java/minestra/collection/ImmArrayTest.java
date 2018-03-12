@@ -94,6 +94,13 @@ public final class ImmArrayTest {
     }
 
     @Test
+    public void testFilterMap() {
+        ImmArray<String> arr = arr("java", "scala", "perl", "ruby", "python");
+        assertEquals(arr("SCALA", "PYTHON"), arr.filterMap(x -> x.length() >= 5 ? Optional.of(x.toUpperCase()) : Optional.empty()));
+        assertEquals(arr("SCALA", "PYTHON"), arr.filter(x -> x.length() >= 5).map(String::toUpperCase));
+    }
+
+    @Test
     public void testFind() {
         ImmArray<String> arr = arr("java", "scala", "perl", "ruby", "python");
         assertEquals(Optional.of("scala"), arr.find(x -> x.length() == 5));
