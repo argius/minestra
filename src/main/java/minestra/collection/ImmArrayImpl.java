@@ -74,7 +74,7 @@ final class ImmArrayImpl<T> implements ImmArray<T> {
             else if (o instanceof Stream) {
                 try (@SuppressWarnings("unchecked")
                 Stream<R> x = (Stream<R>) o) {
-                    x.forEach(list::add);
+                    x.forEachOrdered(list::add);
                 }
             }
             else if (o instanceof Optional) {
