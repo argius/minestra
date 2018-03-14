@@ -2,8 +2,11 @@ package minestra.text;
 
 import static minestra.text.TestUtils.fail;
 import static org.junit.Assert.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import org.junit.Test;
 
 public final class ResourceSheafTest {
@@ -100,6 +103,18 @@ public final class ResourceSheafTest {
         ResourceSheaf res = parent.derive().withClass(getClass()).withLocales(Locale.ENGLISH);
         assertEquals("the", res.stringOpt("key1").orElseThrow(fail("empty")));
         assertEquals("parent(/messages)", res.stringOpt("parentName").orElseThrow(fail("empty")));
+    }
+
+    @Test
+    public void testToResourceBundle() {
+        ResourceSheaf res = ResourceSheaf.create(getClass());
+        ResourceBundle rb = res.toResourceBundle();
+        List<String> keys = Collections.list(rb.getKeys());
+        Collections.sort(keys);
+        assertEquals("[key1, key2, key3a, key3b, key3c]", keys.toString());
+        for (String key : keys) {
+            assertEquals(res.string(key), rb.getString(key));
+        }
     }
 
     @Test

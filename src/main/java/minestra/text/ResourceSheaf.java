@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -256,6 +258,26 @@ public final class ResourceSheaf implements PropsRef {
         ResourceSheaf res = copy();
         res.parent = this;
         return res;
+    }
+
+    /**
+     * Returns an instance of ResourceBundle based on this instance.
+     * @return an instance of ResourceBundle
+     */
+    public ResourceBundle toResourceBundle() {
+        List<String> keyList = tables.stream().flatMap(x -> x.keySet().stream()).collect(Collectors.toList());
+        Enumeration<String> keys = Collections.enumeration(keyList);
+        class ToResourceBundleMethodLocal extends ResourceBundle {
+            @Override
+            protected Object handleGetObject(String key) {
+                return getProperty(key);
+            }
+            @Override
+            public Enumeration<String> getKeys() {
+                return keys;
+            }
+        }
+        return new ToResourceBundleMethodLocal();
     }
 
     /**
