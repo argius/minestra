@@ -16,20 +16,29 @@ See "Examples" section if you want to know more about features in this library.
 site: http://argius.github.io/minestra/
 
 
-Download
---------
+Dependency
+----------
 
-Download the latest Jar file from the release page in GitHub.
+You can download Minestra via Maven Central.
 
-https://github.com/argius/minestra/releases
+MvnRepository URL:  https://mvnrepository.com/artifact/net.argius/minestra
 
 
+ - Maven
 
-Usage
------
+```
+<dependency>
+    <groupId>net.argius</groupId>
+    <artifactId>minestra</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
-Not uploaded to Maven yet.
-Please download JAR and add it to your classpath.
+ - Gradle
+
+```
+    compile 'net.argius:minestra:1.0.0'
+```
 
 
 

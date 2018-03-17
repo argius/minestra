@@ -24,20 +24,29 @@ All Java contributors.
 
 
 
-Download
---------
+Dependency
+----------
 
-Download the latest Jar file from the release page in GitHub.
+You can download Minestra from Maven Central.
 
-https://github.com/argius/minestra/releases
+MvnRepository URL:  https://mvnrepository.com/artifact/net.argius/minestra
 
 
+ - Maven
 
-Usage
------
+```
+<dependency>
+    <groupId>net.argius</groupId>
+    <artifactId>minestra</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
-Not uploaded to Maven yet.
-Please download JAR and add it to your classpath.
+ - Gradle
+
+```
+    compile 'net.argius:minestra:1.0.0'
+```
 
 
 
