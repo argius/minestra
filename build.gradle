@@ -53,6 +53,9 @@ signing {
 uploadArchives {
   repositories {
     mavenDeployer {
+      def sonatypeUsername = project.hasProperty("sonatypeUsername") ? project.property("sonatypeUsername") : ""
+      def sonatypePassword = project.hasProperty("sonatypePassword") ? project.property("sonatypePassword") : ""
+
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {

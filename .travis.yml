@@ -8,5 +8,4 @@ branches:
     - master
     - develop
 
-install: ./gradlew assemble -PsonatypeUsername=argius -PsonatypePassword=
-script: ./gradlew test -PsonatypeUsername=argius -PsonatypePassword=
+script: ./gradlew test
