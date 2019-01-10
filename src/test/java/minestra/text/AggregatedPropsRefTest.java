@@ -1,6 +1,6 @@
 package minestra.text;
 
-import static minestra.text.TestUtils.*;
+import static minestra.text.PackagePrivateTestUtils.*;
 import static org.junit.Assert.*;
 import java.util.OptionalInt;
 import org.junit.Test;

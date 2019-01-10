@@ -6,9 +6,9 @@ import java.util.Properties;
 import java.util.function.Supplier;
 import junit.framework.AssertionFailedError;
 
-final class TestUtils {
+final class PackagePrivateTestUtils {
 
-    private TestUtils() {
+    private PackagePrivateTestUtils() {
         //
     }
 

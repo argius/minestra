@@ -1,6 +1,6 @@
 package minestra.text;
 
-import static minestra.text.TestUtils.fail;
+import static minestra.text.PackagePrivateTestUtils.fail;
 import static org.junit.Assert.*;
 import java.util.Collections;
 import java.util.List;
