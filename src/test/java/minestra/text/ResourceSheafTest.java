@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import org.junit.Test;
+import minestra.TestUtils;
 
 public final class ResourceSheafTest {
 
@@ -123,6 +125,27 @@ public final class ResourceSheafTest {
 
     @Test
     public void testIntegerOpt() {
+    }
+
+    @Test
+    public void testFKey() {
+        Function<String, String> f = TestUtils.getStaticMethodInvokerWithForcedAccessibility(ResourceSheaf.class, "fKey", String.class);
+        assertEquals("abc", f.apply("abc=def"));
+        assertEquals("abc", f.apply("abc =def"));
+        assertEquals("abc", f.apply(" abc=def"));
+        assertEquals("abc", f.apply(" abc =def"));
+        assertEquals("abc", f.apply("abc==def"));
+        assertEquals("abcdef", f.apply("abcdef"));
+    }
+
+    @Test
+    public void testFVal() {
+        Function<String, String> f = TestUtils.getStaticMethodInvokerWithForcedAccessibility(ResourceSheaf.class, "fVal", String.class);
+        assertEquals("def", f.apply("abc=def"));
+        assertEquals("def", f.apply("abc= def"));
+        assertEquals("def ", f.apply("abc=def\\"));
+        assertEquals(" ", f.apply("abc=\\"));
+        assertEquals("def\\g", f.apply("abc=def\\g"));
     }
 
 }
