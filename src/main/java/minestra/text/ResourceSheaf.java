@@ -90,13 +90,20 @@ public final class ResourceSheaf implements PropsRef {
     }
 
     private static String fKey(String x) {
-        return x.contains("=") ? x.replaceFirst("=.*", "").trim() : x.trim();
+        final int p = x.indexOf('=');
+        return (p >= 0 ? x.substring(0, p) : x).trim();
     }
 
     private static String fVal(String x) {
-        // @formatter:off
-        return x.contains("=") ? x.replaceFirst(".+=", "").trim().replaceFirst("\\\\$", " ").replace("\\ ", " ") : x.trim();
-        // @formatter:on
+        final int p = x.indexOf('=');
+        if (p >= 0) {
+            String s = x.substring(p + 1).trim();
+            if (s.endsWith("\\")) {
+                s = s.substring(0, s.length() - 1) + ' ';
+            }
+            return s.replace("\\ ", " ");
+        }
+        return x.trim();
     }
 
     /**
