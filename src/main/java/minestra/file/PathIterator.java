@@ -1,6 +1,5 @@
 package minestra.file;
 
-import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -10,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Spliterators;
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -32,12 +32,14 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
     private final int maxDepth;
     private final Queue<Path> q;
     private final Queue<Path> dirs;
+    private BiConsumer<Exception, Path> errorHandler;
 
     PathIterator(Path root, int maxDepth) {
         this.rootDepth = root.getNameCount();
         this.maxDepth = maxDepth;
         this.q = new LinkedList<>();
         this.dirs = new LinkedList<>();
+        this.errorHandler = this::err;
         q.offer(root);
         dirs.offer(root);
     }
@@ -125,10 +127,18 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
                         }
                     }
                 });
-            } catch (IOException e) {
-                err(e, dir);
+            } catch (Exception e) {
+                errorHandler.accept(e, dir);
             }
         }
+    }
+
+    public BiConsumer<Exception, Path> getErrorHandler() {
+        return errorHandler;
+    }
+
+    public void setErrorHandler(BiConsumer<Exception, Path> errorHandler) {
+        this.errorHandler = errorHandler;
     }
 
     void err(Exception e, Path path) {
