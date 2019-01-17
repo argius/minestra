@@ -112,6 +112,25 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(new PathIterator(root, maxDepth), 0), false);
     }
 
+    /**
+     * Get a <code>BiConsumer</code> object as an error handler.
+     * The default is <code>PathIterator.err</code> (not public).
+     * @return <code>BiConsumer</code> object as an error handler
+     * @since 1.1
+     */
+    public BiConsumer<Exception, Path> getErrorHandler() {
+        return errorHandler;
+    }
+
+    /**
+     * Set a <code>BiConsumer</code> object as an error handler.
+     * @param errorHandler <code>BiConsumer</code> object as an error handler
+     * @since 1.1
+     */
+    public void setErrorHandler(BiConsumer<Exception, Path> errorHandler) {
+        this.errorHandler = errorHandler;
+    }
+
     void traverse(int requiredSize) {
         while (q.size() < requiredSize) {
             if (dirs.isEmpty()) {
@@ -131,14 +150,6 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
                 errorHandler.accept(e, dir);
             }
         }
-    }
-
-    public BiConsumer<Exception, Path> getErrorHandler() {
-        return errorHandler;
-    }
-
-    public void setErrorHandler(BiConsumer<Exception, Path> errorHandler) {
-        this.errorHandler = errorHandler;
     }
 
     void err(Exception e, Path path) {
