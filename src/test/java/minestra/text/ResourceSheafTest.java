@@ -64,7 +64,6 @@ public final class ResourceSheafTest {
         assertEquals("[minestra/messages]", res.getPathList().toString());
         res = res.withClass(getClass());
         assertEquals("[minestra/text/ResourceSheafTest]", res.getPathList().toString());
-        System.out.println(res);
     }
 
     @Test
