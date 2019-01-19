@@ -1,2 +1,4 @@
 
 key1=ofText
+
+formatMessage1=a{0}z

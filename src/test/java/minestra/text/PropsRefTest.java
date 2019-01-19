@@ -47,6 +47,5 @@ public class PropsRefTest {
         pr.string("key1"); // => en
         pr.string("key2"); // => MSG
         pr.string("key3"); // => C
-        System.out.println();
     }
 }

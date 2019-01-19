@@ -20,6 +20,9 @@ public class PathStringTest {
         assertTrue(o.hasExtension("java"));
         assertTrue(o.hasExtension("Java"));
         assertFalse(o.hasExtension("jar"));
+        PathString o2 = new PathString(Paths.get("README"));
+        assertFalse(o2.hasExtension("java"));
+        assertFalse(o2.hasExtension("txt"));
     }
 
     @Test(expected = NullPointerException.class)

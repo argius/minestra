@@ -127,6 +127,19 @@ public final class ResourceSheafTest {
     }
 
     @Test
+    public void testFormat() {
+        ResourceSheaf res = ResourceSheaf.create(getClass()).withLocales(Locale.ENGLISH).withExtension("txt");
+        assertEquals("ab-yz", res.format("formatMessage1", "b-y"));
+        assertEquals("", res.format("formatMessage2", "A"));
+    }
+
+    @Test
+    public void testFormatOpt() {
+        ResourceSheaf res = ResourceSheaf.create(getClass()).withLocales(Locale.ENGLISH).withExtension("txt");
+        assertEquals("a24z", res.formatOpt("formatMessage1", 24).get());
+    }
+
+    @Test
     public void testFKey() {
         Function<String, String> f = TestUtils.getStaticMethodInvokerWithForcedAccessibility(ResourceSheaf.class, "fKey", String.class);
         assertEquals("abc", f.apply("abc=def"));
