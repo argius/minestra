@@ -5,6 +5,7 @@
     <artifactId>maven-fluido-skin</artifactId>
     <version>1.4</version>
   </skin>
+  <version/>
   <bannerRight>
     <src>/images/minestra-logo.png</src>
   </bannerRight>

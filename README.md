@@ -19,7 +19,7 @@ site: http://argius.github.io/minestra/
 Dependency
 ----------
 
-You can download Minestra via Maven Central.
+You can download Minestra from Maven Central.
 
 MvnRepository URL:  https://mvnrepository.com/artifact/net.argius/minestra
 
@@ -30,14 +30,14 @@ MvnRepository URL:  https://mvnrepository.com/artifact/net.argius/minestra
 <dependency>
     <groupId>net.argius</groupId>
     <artifactId>minestra</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
  - Gradle
 
 ```
-    compile 'net.argius:minestra:1.0.0'
+    compile 'net.argius:minestra:1.1.0'
 ```
 
 
@@ -102,6 +102,27 @@ PathString path1 = PathString.of("/tmp/file.dat");
 System.out.println(path1.extension()); // => Optional[dat]
 PathString path2 = PathString.of("/tmp/file");
 System.out.println(path2.extension()); // => Optional.empty
+```
+
+
+### LetterCaseConverter
+
+`LetterCaseConverter` is a letter-case converter.
+
+```
+// import java.util.Arrays;
+// import minestra.text.*;
+
+String[] a = {
+    LetterCaseConverter.capitalize("hello"),
+    LetterCaseConverter.uncapitalize("World"),
+    LetterCaseConverter.toCamelCase("read_all_files"),
+    LetterCaseConverter.toPascalCase("forget-me-not"),
+    LetterCaseConverter.toSnakeCase("CaseConverter"),
+    LetterCaseConverter.toChainCase("toString")};
+System.out.println(Arrays.toString(a));
+
+// => [Hello, world, readAllFiles, ForgetMeNot, case_converter, to-string]
 ```
 
 
