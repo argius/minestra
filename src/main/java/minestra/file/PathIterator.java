@@ -1,6 +1,5 @@
 package minestra.file;
 
-import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -10,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Spliterators;
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -32,12 +32,14 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
     private final int maxDepth;
     private final Queue<Path> q;
     private final Queue<Path> dirs;
+    private BiConsumer<Exception, Path> errorHandler;
 
     PathIterator(Path root, int maxDepth) {
         this.rootDepth = root.getNameCount();
         this.maxDepth = maxDepth;
         this.q = new LinkedList<>();
         this.dirs = new LinkedList<>();
+        this.errorHandler = this::err;
         q.offer(root);
         dirs.offer(root);
     }
@@ -110,6 +112,25 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(new PathIterator(root, maxDepth), 0), false);
     }
 
+    /**
+     * Get a <code>BiConsumer</code> object as an error handler.
+     * The default is <code>PathIterator.err</code> (not public).
+     * @return <code>BiConsumer</code> object as an error handler
+     * @since 1.1
+     */
+    public BiConsumer<Exception, Path> getErrorHandler() {
+        return errorHandler;
+    }
+
+    /**
+     * Set a <code>BiConsumer</code> object as an error handler.
+     * @param errorHandler <code>BiConsumer</code> object as an error handler
+     * @since 1.1
+     */
+    public void setErrorHandler(BiConsumer<Exception, Path> errorHandler) {
+        this.errorHandler = errorHandler;
+    }
+
     void traverse(int requiredSize) {
         while (q.size() < requiredSize) {
             if (dirs.isEmpty()) {
@@ -125,8 +146,8 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
                         }
                     }
                 });
-            } catch (IOException e) {
-                err(e, dir);
+            } catch (Exception e) {
+                errorHandler.accept(e, dir);
             }
         }
     }
