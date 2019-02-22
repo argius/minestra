@@ -61,7 +61,10 @@ Neither pipeline nor any performance improvement strategies.
 ImmArray<String> a = ImmArray.of(Arrays.asList("1"), Optional.of("2"), ImmArray.of("3", "A"),
     Optional.empty(), Arrays.asList("5"), "B", Stream.of("6", "7"))
     .flatten();
-// => [1, 2, 3, A, 5, B, 6, 7]
+for (String s : a) {
+    System.out.printf("%s, ", s);
+}
+// => 1, 2, 3, A, 5, B, 6, 7,
 ```
 
 ```
