@@ -92,7 +92,20 @@ public final class IntImmArrayTest {
 
     @Test
     public void testFilter() {
-        assertEquals(arr(2, 8, 6), arr(3, 2, 8, 5, 6).filter(x -> x % 2 == 0));
+        class X extends Skeleton {
+            int[] a = new int[]{3, 2, 8, 5, 6};
+            @Override
+            public int at(int index) {
+                return a[index];
+            }
+            @Override
+            public int size() {
+                return a.length;
+            }
+        }
+        IntImmArray o = new X();
+        //        o = arr(3, 2, 8, 5, 6);
+        assertEquals(arr(2, 8, 6), o.filter(x -> x % 2 == 0));
     }
 
     @Test
@@ -383,4 +396,38 @@ public final class IntImmArrayTest {
         assertEquals("士‡𡈽±土", IntImmArray.asCodePoints("土±𡈽‡士").reverse().toStringAsCodePoints());
     }
 
+    class Skeleton implements IntImmArray {
+        @Override
+        public int size() {
+            return 0;
+        }
+        @Override
+        public int at(int index) {
+            return 0;
+        }
+        @Override
+        public int sum() {
+            return 0;
+        }
+        @Override
+        public int product() {
+            return 0;
+        }
+        @Override
+        public OptionalInt max() {
+            return null;
+        }
+        @Override
+        public OptionalInt min() {
+            return null;
+        }
+        @Override
+        public IntImmArray sortWith(int fromIndex, int toIndex, IntComparator cmp) {
+            return null;
+        }
+        @Override
+        public int[] toArray() {
+            return null;
+        }
+    }
 }

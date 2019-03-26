@@ -1,7 +1,9 @@
 package minestra.text;
 
 import static org.junit.Assert.*;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import org.junit.Test;
 
@@ -18,13 +20,23 @@ public class PropsRefTest {
     }
 
     @Test
-    public void testCopied() {
+    public void testCopyOf_Properties() {
         Properties props = new Properties();
         props.setProperty("k", "AAA");
         PropsRef pr = PropsRef.copyOf(props);
         assertEquals("AAA", pr.s("k"));
         props.setProperty("k", "xxxYYYz99");
         assertEquals("AAA", pr.s("k"));
+    }
+
+    @Test
+    public void testCopyOf_Map() {
+        Map<String, String> m = new HashMap<>();
+        m.put("s", "XXX");
+        m.put("r", "12%");
+        PropsRef pr = PropsRef.copyOf(m);
+        assertEquals("XXX", pr.s("s"));
+        assertEquals("12%", pr.s("r"));
     }
 
     @Test
