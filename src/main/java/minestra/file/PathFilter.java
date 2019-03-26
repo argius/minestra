@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
 
 /**
- * PathFilter provides predicates for <code>java.nio.file.Path</code>.
+ * PathFilter provides several methods to generate predicates for filtering objects of <code>java.nio.file.Path</code>.
  */
 public final class PathFilter {
 
