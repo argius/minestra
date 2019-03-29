@@ -116,7 +116,7 @@ public final class PathFilter {
 
     /**
      * Returns a predicate that checks if the mtime of the file is before the specified time point.
-     * @param time the spacified time
+     * @param time the spacified time (exclusive)
      * @return a predicate as a mtime filter
      */
     public static Predicate<Path> mtimeBefore(Instant time) {
@@ -128,7 +128,7 @@ public final class PathFilter {
 
     /**
      * Returns a predicate that checks if the mtime of the file is after the specified time point.
-     * @param time the spacified time
+     * @param time the spacified time (exclusive)
      * @return a predicate as a mtime filter
      */
     public static Predicate<Path> mtimeAfter(Instant time) {
@@ -140,8 +140,8 @@ public final class PathFilter {
 
     /**
      * Returns a predicate that checks if the mtime of the file is between two specified time points.
-     * @param time1 the first spacified time
-     * @param time2 the second spacified time
+     * @param time1 the first spacified time (inclusive)
+     * @param time2 the second spacified time (inclusive)
      * @return a predicate as a mtime filter
      */
     public static Predicate<Path> mtimeBetween(Instant time1, Instant time2) {
