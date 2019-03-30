@@ -39,10 +39,26 @@ public final class PathFilterTest {
     }
 
     @Test
+    public void testSizeEQ_IllegalArgumentException() {
+        assertFalse(PathFilter.sizeEQ(0L).test(path1));
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size=-1"));
+        PathFilter.sizeEQ(-1L);
+    }
+
+    @Test
     public void testSizeLT() {
         assertFalse(PathFilter.sizeLT(2L).test(path1));
         assertFalse(PathFilter.sizeLT(3L).test(path1));
         assertTrue(PathFilter.sizeLT(4L).test(path1));
+    }
+
+    @Test
+    public void testSizeLT_IllegalArgumentException() {
+        assertFalse(PathFilter.sizeLT(0L).test(path1));
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size=-1"));
+        PathFilter.sizeLT(-1L);
     }
 
     @Test
@@ -53,10 +69,26 @@ public final class PathFilterTest {
     }
 
     @Test
+    public void testSizeLE_IllegalArgumentException() {
+        assertFalse(PathFilter.sizeLE(0L).test(path1));
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size=-1"));
+        PathFilter.sizeLE(-1L);
+    }
+
+    @Test
     public void testSizeGT() {
         assertTrue(PathFilter.sizeGT(2L).test(path1));
         assertFalse(PathFilter.sizeGT(3L).test(path1));
         assertFalse(PathFilter.sizeGT(4L).test(path1));
+    }
+
+    @Test
+    public void testSizeGT_IllegalArgumentException() {
+        assertTrue(PathFilter.sizeGT(0L).test(path1));
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size=-1"));
+        PathFilter.sizeGT(-1L);
     }
 
     @Test
@@ -67,12 +99,34 @@ public final class PathFilterTest {
     }
 
     @Test
+    public void testSizeGE_IllegalArgumentException() {
+        assertTrue(PathFilter.sizeGE(0L).test(path1));
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size=-1"));
+        PathFilter.sizeGE(-1L);
+    }
+
+    @Test
     public void testSizeBetween() {
         assertFalse(PathFilter.sizeBetween(0L, 2L).test(path1));
         assertTrue(PathFilter.sizeBetween(1L, 3L).test(path1));
         assertTrue(PathFilter.sizeBetween(2L, 4L).test(path1));
         assertTrue(PathFilter.sizeBetween(3L, 5L).test(path1));
         assertFalse(PathFilter.sizeBetween(4L, 6L).test(path1));
+    }
+
+    @Test
+    public void testSizeBetween_IllegalArgumentException1() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size1=-1"));
+        PathFilter.sizeBetween(-1L, 0L);
+    }
+
+    @Test
+    public void testSizeBetween_IllegalArgumentException2() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size2=-1"));
+        PathFilter.sizeBetween(0L, -1L);
     }
 
     @Test
