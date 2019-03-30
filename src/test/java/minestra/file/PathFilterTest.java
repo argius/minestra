@@ -130,6 +130,13 @@ public final class PathFilterTest {
     }
 
     @Test
+    public void testSizeBetween_IllegalArgumentException3() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(Matchers.containsString("size1(3) is larger than size2(2)"));
+        PathFilter.sizeBetween(3L, 2L);
+    }
+
+    @Test
     public void testMtimeBefore() {
         assertFalse(PathFilter.mtimeBefore(t("2018-06-14T00:00:00Z")).test(path1));
         assertFalse(PathFilter.mtimeBefore(t("2018-06-15T00:00:00Z")).test(path1));

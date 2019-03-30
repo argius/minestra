@@ -97,6 +97,9 @@ public final class PathFilter {
         if (size2 < 0) {
             throw new IllegalArgumentException("size2=" + size2);
         }
+        if (size1 > size2) {
+            throw new IllegalArgumentException(String.format("size1(%d) is larger than size2(%d)", size1, size2));
+        }
         return x -> {
             long v = size(x);
             return v >= 0 && v >= size1 && v <= size2;
