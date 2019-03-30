@@ -86,8 +86,8 @@ public final class PathFilter {
 
     /**
      * Returns a predicate that checks if the file size is between two specified sizes.
-     * @param size1 the first specified size
-     * @param size2 the second specified size
+     * @param size1 the first specified size (inclusive)
+     * @param size2 the second specified size (inclusive)
      * @return a predicate as a size filter
      */
     public static Predicate<Path> sizeBetween(long size1, long size2) {
