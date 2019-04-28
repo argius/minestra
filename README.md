@@ -30,14 +30,14 @@ MvnRepository URL:  https://mvnrepository.com/artifact/net.argius/minestra
 <dependency>
     <groupId>net.argius</groupId>
     <artifactId>minestra</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
  - Gradle
 
 ```
-    compile 'net.argius:minestra:1.1.0'
+    compile 'net.argius:minestra:1.2.0'
 ```
 
 
@@ -77,19 +77,28 @@ List<String> list2 = IntImmArray.of(1, 2, 3).mapToObj(x -> "#" + x).toList();
 ```
 
 
-### PathIterator
+### PathIterator and PathFilter
 
 `PathIterator` is an iterator which walks through a file tree like `Files.find()`.
+`PathFilter` is a filter-generator for filtering objects of `java.nio.file.Path`.
 
 ```
+// import java.time.*;
 // import java.nio.file.*;
 // import minestra.file.*;
 
+Predicate<Path> filter1 = PathFilter.sizeGT(100 * 1024L); // file size is larger than 100KB
+Predicate<Path> filter2 = PathFilter.mtimeBetween(
+    Instant.parse("2017-04-01T00:00:00Z"), Instant.parse("2018-03-31T23:59:59Z")
+); // mtime is between 2017-04-01 and 2018-03-31T23:59:59 (UTC)
+Predicate<Path> filter3 = filter1.and(filter2);
 PathIterator.streamOf(Paths.get("/tmp"))
-    .filter(x -> x.toFile().length() > 1024L * 100)
+    .filter(filter3)
     .forEach(System.out::println);
 for (Path x : PathIterator.of(Paths.get("/tmp"))) {
-    System.out.println(x);
+    if (filter3.test(x)) {
+        System.out.println(x);
+    }
 }
 ```
 
