@@ -18,7 +18,7 @@ dependencies {
 
 group = "net.argius"
 archivesBaseName = "minestra"
-version = '1.2.0-RC1'
+version = '1.2.0'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
