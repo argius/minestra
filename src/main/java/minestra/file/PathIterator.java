@@ -163,7 +163,7 @@ public final class PathIterator implements Iterator<Path>, Iterable<Path> {
         else {
             msg = String.format("%s (%s)", e.getMessage(), e.getClass().getSimpleName());
         }
-        System.err.printf("potf: '%s': %s%n", path, msg);
+        System.err.printf("%s: '%s': %s%n", getClass().getName(), path, msg);
     }
 
 }

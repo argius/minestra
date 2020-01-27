@@ -76,13 +76,13 @@ public class PathIteratorTest {
         // main
         PathIterator x = PathIterator.of(Paths.get(""));
         x.err(new IOException("test1"), Paths.get("."));
-        assertEquals("potf: '.': test1 (IOException)", StringUtils.chomp(bos.toString()));
+        assertEquals("minestra.file.PathIterator: '.': test1 (IOException)", StringUtils.chomp(bos.toString()));
         bos.reset();
         x.err(new AccessDeniedException("test2"), Paths.get("."));
-        assertEquals("potf: '.': access denied", StringUtils.chomp(bos.toString()));
+        assertEquals("minestra.file.PathIterator: '.': access denied", StringUtils.chomp(bos.toString()));
         bos.reset();
         x.err(new NoSuchFileException("test3"), Paths.get("."));
-        assertEquals("potf: '.': no such file or directory", StringUtils.chomp(bos.toString()));
+        assertEquals("minestra.file.PathIterator: '.': no such file or directory", StringUtils.chomp(bos.toString()));
         // restore STDERR
         System.setErr(err);
     }
@@ -94,7 +94,7 @@ public class PathIteratorTest {
             // empty
         };
         o.setErrorHandler(f);
-        assertSame(f, o.getErrorHandler());;
+        assertSame(f, o.getErrorHandler());
     }
 
     @Test
@@ -108,7 +108,8 @@ public class PathIteratorTest {
         o.setErrorHandler((e, path) -> {
             errors.add(String.format("%s_%s", e.getClass().getSimpleName(), PathString.name(path)));
         });
-        o.forEach(x -> {});
+        o.forEach(x -> {
+        });
         assertEquals("NoSuchFileException_00000000000000000000.nosuchdir", errors.get(0));
     }
 
