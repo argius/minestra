@@ -76,11 +76,18 @@ public final class ResourceSheafTest {
 
     @Test
     public void testWithExtension() {
-        ResourceSheaf res;
+        ResourceSheaf res, res2;
         res = ResourceSheaf.create(getClass()).withExtension("txt");
         assertEquals("[minestra/text/ResourceSheafTest.txt]", res.getPathList().toString());
         res = res.withName("rename");
-        assertEquals("[minestra/text/rename]", res.getPathList().toString());
+        assertEquals("[minestra/text/rename.txt]", res.getPathList().toString());
+        res2 = res.derive();
+        assertEquals("[minestra/text/rename.txt]", res2.getPathList().toString());
+        res2 = res2.withMessages();
+        assertEquals("[minestra/text/messages.txt]", res2.getPathList().toString());
+        assertEquals("derive_suffix", res2.s("key1"));
+        res2 = res2.withLocation("loc/name");
+        assertEquals("[loc/name.txt]", res2.getPathList().toString());
     }
 
     @Test
@@ -104,6 +111,15 @@ public final class ResourceSheafTest {
         ResourceSheaf res = parent.derive().withClass(getClass()).withLocales(Locale.ENGLISH);
         assertEquals("the", res.stringOpt("key1").orElseThrow(fail("empty")));
         assertEquals("parent(/messages)", res.stringOpt("parentName").orElseThrow(fail("empty")));
+        ResourceSheaf parent2 = ResourceSheaf.create().withName("default").withExtension("txt");
+        ResourceSheaf res2 = parent2.derive().withClass(getClass()).withLocales(Locale.ENGLISH);
+        assertEquals("[minestra/text/ResourceSheafTest_en.txt, minestra/text/ResourceSheafTest.txt]",
+            res2.getPathList().toString());
+        assertEquals("ofText", res2.stringOpt("key1").orElseThrow(fail("empty")));
+        ResourceSheaf parent3 = ResourceSheaf.create().withName("default").withExtension("txt");
+        ResourceSheaf res3 = parent3.derive().withClass(getClass()).withMessages();
+        assertEquals("[minestra/text/messages.txt]", res3.getPathList().toString());
+        assertEquals("derive_suffix", res3.stringOpt("key1").orElseThrow(fail("empty")));
     }
 
     @Test

@@ -224,7 +224,7 @@ public final class ResourceSheaf implements PropsRef {
      * @return new instance
      */
     public ResourceSheaf withName(String name) {
-        return new ResourceSheaf(parent, classLoader, replaceName(location, name), locales, "");
+        return new ResourceSheaf(parent, classLoader, replaceName(location, name), locales, extension);
     }
 
     static String replaceName(String location, String name) {
