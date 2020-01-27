@@ -30,14 +30,14 @@ MvnRepository URL:  https://mvnrepository.com/artifact/net.argius/minestra
 <dependency>
     <groupId>net.argius</groupId>
     <artifactId>minestra</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
  - Gradle
 
 ```
-    compile 'net.argius:minestra:1.2.0'
+    compile 'net.argius:minestra:1.2.1'
 ```
 
 
