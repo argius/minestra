@@ -176,4 +176,16 @@ public final class ResourceSheafTest {
         assertEquals("def\\g", f.apply("abc=def\\g"));
     }
 
+    @Test
+    public void testToString() {
+        ResourceSheaf res = ResourceSheaf.create(getClass()).withLocales(Locale.ENGLISH).withExtension("txt");
+        assertEquals("ResourceSheaf(parent=None, location=minestra/text/ResourceSheafTest, locales=[en], extension=txt)",
+                     res.toString());
+        ResourceSheaf child = res.derive().withLocales(Locale.GERMAN).withExtension(".properties");
+        assertEquals("ResourceSheaf(parent="
+                     + "ResourceSheaf(parent=None, location=minestra/text/ResourceSheafTest, locales=[en], extension=txt),"
+                     + " location=minestra/text/ResourceSheafTest, locales=[de], extension=.properties)",
+                     child.toString());
+    }
+
 }
